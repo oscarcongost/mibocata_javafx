@@ -1,19 +1,19 @@
 package org.example.mibocatajavafx.dao;
 
-import org.example.mibocatajavafx.models.Alumnos;
+import org.example.mibocatajavafx.models.Usuarios;
 import org.example.mibocatajavafx.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class AlumnoDAO {
+public class UsuarioDAO {
 
-    public void guardarAlumno(Alumnos alumno) {
+    public void guardarUsuario(Usuarios usuario) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.persist(alumno);
+            session.persist(usuario);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -23,11 +23,11 @@ public class AlumnoDAO {
         }
     }
 
-    public void actualizarAlumno(Alumnos alumno) {
+    public void actualizarUsuario(Usuarios usuario) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.merge(alumno);
+            session.merge(usuario);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -37,13 +37,13 @@ public class AlumnoDAO {
         }
     }
 
-    public void borrarAlumno(Long id) {
+    public void borrarUsuario(Long id) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Alumnos alumno = session.get(Alumnos.class, id);
-            if (alumno != null) {
-                session.remove(alumno);
+            Usuarios usuario = session.get(Usuarios.class, id);
+            if (usuario != null) {
+                session.remove(usuario);
             }
             transaction.commit();
         } catch (Exception e) {
@@ -54,16 +54,15 @@ public class AlumnoDAO {
         }
     }
 
-    public List<Alumnos> listarAlumnos() {
+    public List<Usuarios> listarUsuarios() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Alumnos", Alumnos.class).list();
+            return session.createQuery("from Usuarios", Usuarios.class).list();
         }
     }
 
-    public Alumnos buscarAlumno(Long id) {
+    public Usuarios buscarUsuario(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(Alumnos.class, id);
+            return session.get(Usuarios.class, id);
         }
     }
-
 }
