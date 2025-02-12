@@ -18,7 +18,8 @@ public class Usuario {
     @Column(name = "rol", length = 10)
     private String rol;
 
-    public Usuario() {}
+    public Usuario() {
+    }
 
     public Usuario(String email, String mac, String contrasena, String rol) {
         this.email = email;
@@ -58,4 +59,5 @@ public class Usuario {
     public void setRol(String rol) {
         this.rol = rol;
     }
+
 }

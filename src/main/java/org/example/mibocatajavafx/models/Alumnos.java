@@ -8,21 +8,25 @@ import java.util.Date;
 @Table(name = "Alumno")
 public class Alumnos {
 
-
-
     @Id
     @Column(name = "mac", nullable = false, unique = true)
     private char mac;
+
     @Column(name = "nombre")
     private String nombre;
+
     @Column(name = "motivo_baja")
     private String motivo_baja;
+
     @Column(name = "fecha_baja")
     private Date fecha_baja;
+
     @Column(name = "abonado", nullable = false)
     private int abonado;
+
     @Column(name = "pass", nullable = false)
     private String pass;
+
     @Column(name = "correo")
     private String correo;
 
@@ -38,7 +42,6 @@ public class Alumnos {
         this.pass = pass;
         this.correo = correo;
     }
-
 
 
     public char getMac() {
@@ -96,4 +99,5 @@ public class Alumnos {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
 }

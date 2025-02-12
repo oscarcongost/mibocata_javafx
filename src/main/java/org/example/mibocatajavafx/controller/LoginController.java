@@ -30,7 +30,6 @@ public class LoginController {
     @FXML
     public void initialize() {
         System.out.println("initialize() llamado: emailField es " + emailField);
-        // Aquí puedes agregar más lógica para la inicialización, si es necesario
     }
 
     @FXML
