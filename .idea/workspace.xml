@@ -4,24 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e5419838-f940-4003-a73e-59bc29c1b50e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Usuario.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/imgicons8com.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fonts/helvetica.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fonts/helveticabold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fonts/helveticaboldoblique.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fonts/helveticacompressed5871d14b6903a.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fonts/helveticalight587ebe5a59211.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fonts/helveticaoblique.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fonts/helveticaroundedbold5871d05ead8de.otf" afterDir="false" />
+    <list default="true" id="e5419838-f940-4003-a73e-59bc29c1b50e" name="Changes" comment="resuelve conflicto">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/screens/adminPage.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/screens/cocinaPage.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/screens/seleccionBocata.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/Login.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/UsuarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/UsuarioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Alumnos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Alumnos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/utils/HibernateUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/utils/HibernateUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Usuarios.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/services/AlumnosService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/screens/loginScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/screens/loginScreen.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,6 +45,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "AlexElMejor54"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/oscarcongost/mibocata_javafx.git",
+    "accountId": "5da7bd6d-e91a-4926-be87-03df634b6c4b"
+  }
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -56,33 +68,57 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2sfmNKVDZ9PQb0UyPlIvKPTWyvj" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;login&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/alejandri/IdeaProjects/mibocata_javafx/src/main/resources/assets&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.HelloApplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "login",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/alejandri/IdeaProjects/mibocata_javafx/src/main/resources/assets",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/assets" />
       <recent name="$PROJECT_DIR$/src/main/resources/fonts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/resources/screens" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.mibocatajavafx.HelloApplication" />
+      <module name="mibocata-javaFX" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.mibocatajavafx.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.HelloApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -108,6 +144,15 @@
       <workItem from="1739203222419" duration="5568000" />
       <workItem from="1739294958601" duration="1559000" />
     </task>
+    <task id="LOCAL-00001" summary="resuelve conflicto">
+      <option name="closed" value="true" />
+      <created>1739297068261</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1739297068261</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,5 +168,24 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="resuelve conflicto" />
+    <option name="LAST_COMMIT_MESSAGE" value="resuelve conflicto" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java</url>
+          <line>11</line>
+          <properties class="org.example.mibocatajavafx.service.AlumnoService" method="validarCredenciales">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

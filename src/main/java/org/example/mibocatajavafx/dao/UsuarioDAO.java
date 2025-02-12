@@ -1,6 +1,6 @@
 package org.example.mibocatajavafx.dao;
 
-import org.example.mibocatajavafx.models.Usuarios;
+import org.example.mibocatajavafx.models.Usuario;
 import org.example.mibocatajavafx.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UsuarioDAO {
 
-    public void guardarUsuario(Usuarios usuario) {
+    public void guardarUsuario(Usuario usuario) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -23,7 +23,7 @@ public class UsuarioDAO {
         }
     }
 
-    public void actualizarUsuario(Usuarios usuario) {
+    public void actualizarUsuario(Usuario usuario) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -41,7 +41,7 @@ public class UsuarioDAO {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Usuarios usuario = session.get(Usuarios.class, id);
+            Usuario usuario = session.get(Usuario.class, id);
             if (usuario != null) {
                 session.remove(usuario);
             }
@@ -54,15 +54,15 @@ public class UsuarioDAO {
         }
     }
 
-    public List<Usuarios> listarUsuarios() {
+    public List<Usuario> listarUsuarios() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Usuarios", Usuarios.class).list();
+            return session.createQuery("from Usuario", Usuario.class).list();
         }
     }
 
-    public Usuarios buscarUsuario(Long id) {
+    public Usuario buscarUsuario(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(Usuarios.class, id);
+            return session.get(Usuario.class, id);
         }
     }
 }

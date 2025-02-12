@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mibocatajavafx.controller.LoginController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <top>
@@ -33,7 +33,7 @@
       </BorderPane>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="100.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #3A3A3A; -fx-stroke-width: bold;" text="INICIAR SESIÓN" textAlignment="CENTER">
+            <Text strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-fill: #3A3A3A; -fx-stroke-width: 2.0;" text="INICIAR SESIÓN" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="50.0" />
                </font>
@@ -41,6 +41,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Text>
+
             <VBox prefHeight="589.0" prefWidth="408.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px; -fx-opacity: 1;">
                <VBox.margin>
                   <Insets />
@@ -51,7 +52,7 @@
                      <VBox.margin>
                         <Insets left="50.0" />
                      </VBox.margin></Text>
-                  <TextField maxWidth="407.0" prefHeight="43.0" prefWidth="407.0" promptText="Introduce tu correo" style="-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                           -fx-padding: 10px; -fx-font-size: 14px;">
+                  <TextField fx:id="emailField" maxWidth="407.0" prefHeight="43.0" prefWidth="407.0" promptText="Introduce tu correo" style="-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                           -fx-padding: 10px; -fx-font-size: 14px;">
                      <VBox.margin>
                         <Insets left="50.0" top="10.0" />
                      </VBox.margin></TextField>
@@ -61,13 +62,13 @@
                      <VBox.margin>
                         <Insets left="50.0" top="25.0" />
                      </VBox.margin></Text>
-                  <PasswordField maxWidth="407.0" minWidth="400.0" prefHeight="43.0" prefWidth="407.0" promptText="Introduce tu contraseña" style="-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                               -fx-padding: 10px; -fx-font-size: 14px;">
+                  <PasswordField fx:id="passwordField" maxWidth="407.0" minWidth="400.0" prefHeight="43.0" prefWidth="407.0" promptText="Introduce tu contraseña" style="-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                               -fx-padding: 10px; -fx-font-size: 14px;">
                      <VBox.margin>
                         <Insets left="50.0" top="10.0" />
                      </VBox.margin></PasswordField>
 
                   <!-- Botón Continuar -->
-                  <Button alignment="CENTER" contentDisplay="CENTER" minWidth="200.0" prefHeight="40.0" prefWidth="407.0" style="-fx-background-color: #1D1D1B; -fx-text-fill: white;                                                           -fx-font-size: 16px; -fx-font-weight: bold;                                                           -fx-background-radius: 10px; -fx-padding: 10px;" text="Continuar" textAlignment="CENTER">
+                  <Button alignment="CENTER" contentDisplay="CENTER" minWidth="200.0" onAction="#handleLogin" prefHeight="40.0" prefWidth="407.0" style="-fx-background-color: #1D1D1B; -fx-text-fill: white;                                                           -fx-font-size: 16px; -fx-font-weight: bold;                                                           -fx-background-radius: 10px; -fx-padding: 10px;" text="Continuar" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets left="50.0" top="50.0" />
                      </VBox.margin></Button>

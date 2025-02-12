@@ -5,14 +5,13 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Alumnos")
+@Table(name = "Alumno")
 public class Alumnos {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(name = "mac", nullable = false)
+
+    @Id
+    @Column(name = "mac", nullable = false, unique = true)
     private char mac;
     @Column(name = "nombre")
     private String nombre;
@@ -30,8 +29,7 @@ public class Alumnos {
     public Alumnos() {
     }
 
-    public Alumnos(Long id, char mac, String nombre, String motivo_baja, Date fecha_baja, int abonado, String pass, String correo) {
-        this.id = id;
+    public Alumnos(char mac, String nombre, String motivo_baja, Date fecha_baja, int abonado, String pass, String correo) {
         this.mac = mac;
         this.nombre = nombre;
         this.motivo_baja = motivo_baja;
@@ -41,13 +39,7 @@ public class Alumnos {
         this.correo = correo;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public char getMac() {
         return mac;

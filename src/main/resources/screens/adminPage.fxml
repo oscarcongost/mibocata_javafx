@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mibocatajavafx.controller.LoginController">
+    <children>
+        <BorderPane prefHeight="200.0" prefWidth="200.0">
+            <top>
+                <AnchorPane prefHeight="134.0" prefWidth="1916.0" style="-fx-background-color: #1d1d1b;" BorderPane.alignment="CENTER">
+                    <children>
+                        <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" x="100.0" y="5.0">
+                            <image>
+                                <Image url="@../assets/img.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </top>
+        </BorderPane>
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="100.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-fill: #3A3A3A; -fx-stroke-width: 2.0;" text="ADMIN" textAlignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="50.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </Text>
+
+                <VBox prefHeight="589.0" prefWidth="408.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px; -fx-opacity: 1;">
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <children>
+                        <!-- Correo Electrónico -->
+                        <Text style="-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;" text="CORREO ELECTRÓNICO" wrappingWidth="517.8614501953125">
+                            <VBox.margin>
+                                <Insets left="50.0" />
+                            </VBox.margin></Text>
+                        <TextField fx:id="emailField" maxWidth="407.0" prefHeight="43.0" prefWidth="407.0" promptText="Introduce tu correo" style="-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                           -fx-padding: 10px; -fx-font-size: 14px;">
+                            <VBox.margin>
+                                <Insets left="50.0" top="10.0" />
+                            </VBox.margin></TextField>
+
+                        <!-- Contraseña -->
+                        <Text style="-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;" text="CONTRASEÑA" wrappingWidth="465.5390625">
+                            <VBox.margin>
+                                <Insets left="50.0" top="25.0" />
+                            </VBox.margin></Text>
+                        <PasswordField fx:id="passwordField" maxWidth="407.0" minWidth="400.0" prefHeight="43.0" prefWidth="407.0" promptText="Introduce tu contraseña" style="-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                               -fx-padding: 10px; -fx-font-size: 14px;">
+                            <VBox.margin>
+                                <Insets left="50.0" top="10.0" />
+                            </VBox.margin></PasswordField>
+
+                        <!-- Botón Continuar -->
+                        <Button alignment="CENTER" contentDisplay="CENTER" minWidth="200.0" onAction="#handleLogin" prefHeight="40.0" prefWidth="407.0" style="-fx-background-color: #1D1D1B; -fx-text-fill: white;                                                           -fx-font-size: 16px; -fx-font-weight: bold;                                                           -fx-background-radius: 10px; -fx-padding: 10px;" text="Continuar" textAlignment="CENTER">
+                            <VBox.margin>
+                                <Insets left="50.0" top="50.0" />
+                            </VBox.margin></Button>
+                        <HBox prefHeight="42.0" prefWidth="547.0">
+                            <children>
+                                <Line endX="33.29289245605469" endY="-0.10749739408493042" startX="-100.0">
+                                    <HBox.margin>
+                                        <Insets left="50.0" top="15.0" />
+                                    </HBox.margin>
+                                </Line>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Accede con" wrappingWidth="96.59869384765625">
+                                    <HBox.margin>
+                                        <Insets left="25.0" top="5.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font name="System Bold" size="18.0" />
+                                    </font>
+                                </Text>
+                                <Line endX="47.66117858886719" endY="-7.241964340209961E-5" startX="180.89266967773438" startY="3.4034252166748047E-4">
+                                    <HBox.margin>
+                                        <Insets left="15.0" top="15.0" />
+                                    </HBox.margin>
+                                </Line>
+                            </children>
+                            <VBox.margin>
+                                <Insets top="15.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox maxWidth="407.0" prefHeight="40.0" prefWidth="423.0" style="-fx-background-color: #eeeeee; -fx-border-radius: 10px; -fx-border-color: #9B9B9B;">
+                            <children>
+                                <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                    <HBox.margin>
+                                        <Insets left="40.0" top="5.0" />
+                                    </HBox.margin>
+                                    <image>
+                                        <Image url="@../assets/imgicons8com.png" />
+                                    </image>
+                                </ImageView>
+                                <Label prefHeight="22.0" prefWidth="155.0" text="Accede con Google">
+                                    <HBox.margin>
+                                        <Insets left="70.0" top="8.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font name="System Bold" size="17.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="50.0" />
+                            </VBox.margin>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+            <padding>
+                <Insets left="700.0" right="700.0" top="150.0" />
+            </padding>
+        </VBox>
+    </children>
+</StackPane>

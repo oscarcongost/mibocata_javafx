@@ -4,6 +4,7 @@ import org.example.mibocatajavafx.models.Alumnos;
 import org.example.mibocatajavafx.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import javax.naming.Referenceable.*;
 
 import java.util.List;
 

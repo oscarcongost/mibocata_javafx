@@ -12,7 +12,7 @@ public class Usuario {
     @Column(name = "mac", unique = true, length = 12)
     private String mac;
 
-    @Column(name = "contrasena", length = 100)
+    @Column(name = "contraseña", length = 100)
     private String contrasena;
 
     @Column(name = "rol", length = 10)
