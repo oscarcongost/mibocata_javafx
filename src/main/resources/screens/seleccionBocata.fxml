@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mibocatajavafx.controller.AlumnoController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mibocatajavafx.controller.BocadilloController">
+
     <children>
-        <BorderPane prefHeight="200.0" prefWidth="200.0">
+        <BorderPane prefHeight="200.0" prefWidth="1920.0">
             <top>
-                <AnchorPane prefHeight="134.0" prefWidth="1916.0" style="-fx-background-color: #1d1d1b;" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="134.0" prefWidth="1916.0" style="-fx-background-color: #1d1d1b;">
                     <children>
                         <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" x="100.0" y="5.0">
                             <image>
@@ -23,10 +19,5 @@
                 </AnchorPane>
             </top>
         </BorderPane>
-        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="100.0">
-            <padding>
-                <Insets left="700.0" right="700.0" top="150.0" />
-            </padding>
-        </VBox>
     </children>
 </StackPane>

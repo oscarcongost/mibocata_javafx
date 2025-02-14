@@ -1,6 +1,7 @@
 package org.example.mibocatajavafx.models;
 
 import jakarta.persistence.*;
+import org.example.mibocatajavafx.utils.TipoBocadillo;
 import java.util.Date;
 
 @Entity
@@ -88,6 +89,3 @@ public class Bocadillo {
     }
 }
 
-enum TipoBocadillo {
-    FRIO, CALIENTE
-}

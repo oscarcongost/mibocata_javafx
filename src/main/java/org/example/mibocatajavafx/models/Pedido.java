@@ -1,11 +1,8 @@
 package org.example.mibocatajavafx.models;
 
-
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "Pedidos")
@@ -18,14 +15,18 @@ public class Pedido {
     @Column(name = "alumno_mac", nullable = false, length = 12)
     private String alumnoMac;
 
-    @Column(name = "bocadillo_nombre", nullable = false, length = 50)
+    @Column(name = "bocadillo_nombre", nullable = false, length = 50, insertable = false, updatable = false)
     private String bocadilloNombre;
 
+    @ManyToOne
+    @JoinColumn(name = "bocadillo_nombre", referencedColumnName = "nombre")
+    private Bocadillo bocadillo;
+
     @Column(name = "fecha", nullable = false)
-    private Date fecha;
+    private LocalDate fecha;
 
     @Column(name = "hora", nullable = false)
-    private Date hora;
+    private LocalTime hora;
 
     @Column(name = "retirado", nullable = false)
     private boolean retirado;
@@ -33,7 +34,7 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Long id, String alumnoMac, String bocadilloNombre, Date fecha, Date hora, boolean retirado) {
+    public Pedido(Long id, String alumnoMac, String bocadilloNombre, LocalDate fecha, LocalTime hora, boolean retirado) {
         this.id = id;
         this.alumnoMac = alumnoMac;
         this.bocadilloNombre = bocadilloNombre;
@@ -66,7 +67,15 @@ public class Pedido {
         this.bocadilloNombre = bocadilloNombre;
     }
 
-    public Date getFecha() {
+    public Bocadillo getBocadillo() {
+        return bocadillo;
+    }
+
+    public void setBocadillo(Bocadillo bocadillo) {
+        this.bocadillo = bocadillo;
+    }
+
+    public LocalDate getFecha() {
         return fecha;
     }
 
@@ -74,7 +83,7 @@ public class Pedido {
         this.fecha = fecha;
     }
 
-    public Date getHora() {
+    public LocalTime getHora() {
         return hora;
     }
 
@@ -89,5 +98,4 @@ public class Pedido {
     public void setRetirado(boolean retirado) {
         this.retirado = retirado;
     }
-
 }

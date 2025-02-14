@@ -11,7 +11,9 @@
 
         <!--<mapping resource="ejemplo01/Profesor.hbm.xml"/>-->
         <mapping class="org.example.mibocatajavafx.models.Alumnos"/>
-        <mapping class="org.example.mibocatajavafx.models.Usuario"></mapping>
+        <mapping class="org.example.mibocatajavafx.models.Usuario"/>
+        <mapping class="org.example.mibocatajavafx.models.Pedido"/>
+        <mapping class="org.example.mibocatajavafx.models.Bocadillo"/>
 
 
 

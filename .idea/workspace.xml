@@ -5,16 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5419838-f940-4003-a73e-59bc29c1b50e" name="Changes" comment="resuelve conflicto">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/BocadilloController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/PedidoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/BocadilloDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/PedidoDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Bocadillo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Pedido.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/CocinaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/utils/TipoBocadillo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/PedidoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/PedidoDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Alumnos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Alumnos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Bocadillo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Bocadillo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Pedido.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Pedido.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/screens/cocinaPage.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/screens/seleccionBocata.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/screens/seleccionBocata.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +36,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="login" />
+        <entry key="$PROJECT_DIR$" value="seleccion_bocadillo" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -67,21 +71,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "seleccion__bocadillo",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/alejandri/IdeaProjects/mibocata_javafx/src/main/resources/assets",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;panel__cocina&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/alejandri/IdeaProjects/mibocata_javafx/src/main/resources/assets&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/assets" />
@@ -115,8 +120,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17890.1" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17890.1" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
       </set>
     </attachedChunks>
   </component>
@@ -135,6 +140,10 @@
       <workItem from="1738943963658" duration="8957000" />
       <workItem from="1739203222419" duration="5568000" />
       <workItem from="1739294958601" duration="1559000" />
+      <workItem from="1739386557115" duration="232000" />
+      <workItem from="1739387144185" duration="834000" />
+      <workItem from="1739445181041" duration="8179000" />
+      <workItem from="1739468853679" duration="1059000" />
     </task>
     <task id="LOCAL-00001" summary="resuelve conflicto">
       <option name="closed" value="true" />
@@ -164,5 +173,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="resuelve conflicto" />
     <option name="LAST_COMMIT_MESSAGE" value="resuelve conflicto" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

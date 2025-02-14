@@ -11,7 +11,7 @@ public class AlumnoService {
 
     public boolean validarCredenciales(String correoUsuario, String contrasena) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            // Buscar en la tabla Usuario
+            // busca en la tabla usuario
             Query<Usuario> queryUsuario = session.createQuery(
                     "FROM Usuario WHERE email = :email AND contrasena = :contrasena", Usuario.class);
             queryUsuario.setParameter("email", correoUsuario);
@@ -26,7 +26,6 @@ public class AlumnoService {
                 }
             }
 
-            // Si no es admin ni cocina, buscar en Alumno
             Query<Alumnos> queryAlumno = session.createQuery(
                     "FROM Alumnos WHERE correo = :correo AND pass = :pass", Alumnos.class);
             queryAlumno.setParameter("correo", correoUsuario);
@@ -41,12 +40,11 @@ public class AlumnoService {
                 return true; // Alumno válido
             }
 
-            // Si no es usuario ni alumno, credenciales incorrectas
             System.out.println("Usuario no encontrado. Verifique sus credenciales.");
             return false;
         } catch (Exception e) {
             e.printStackTrace();
-            return false; // En caso de error en la base de datos
+            return false;
         }
     }
 

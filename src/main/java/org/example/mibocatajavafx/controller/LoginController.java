@@ -41,11 +41,9 @@ public class LoginController {
         Parent root;
 
         if (alumnoService.validarCredenciales(email, contrasena)) {
-            // Obtener el rol del usuario
             String rol = alumnoService.getRolUsuario();
 
 
-            // Decidir a qué página redirigir dependiendo del rol
             switch (rol) {
                 case "admin":
                     loader = new FXMLLoader(HelloApplication.class.getResource("/screens/adminPage.fxml"));
@@ -61,13 +59,11 @@ public class LoginController {
                     return;
             }
 
-            // Cargar la página correspondiente
             try {
                 root = loader.load();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
-                stage.show(); // Muestra la nueva ventana
-                // Cerrar la ventana de login
+                stage.show();
                 Stage loginStage = (Stage) emailField.getScene().getWindow();
                 loginStage.close();
             } catch (IOException e) {

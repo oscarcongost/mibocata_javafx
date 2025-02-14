@@ -1,7 +1,6 @@
 package org.example.mibocatajavafx.models;
 
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 @Entity
@@ -42,7 +41,6 @@ public class Alumnos {
         this.pass = pass;
         this.correo = correo;
     }
-
 
     public char getMac() {
         return mac;
