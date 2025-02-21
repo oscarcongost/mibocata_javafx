@@ -1,3 +1,4 @@
+/*
 package org.example.mibocatajavafx.controller;
 
 import javafx.collections.FXCollections;
@@ -31,7 +32,7 @@ public class CocinaController {
    @FXML
    private TextField txtTotalFrios;
 
-    private PedidoDAO pedidoDAO = new PedidoDAO();
+   // private PedidoDAO pedidoDAO = new PedidoDAO();
 
     @FXML
     public void initialize() {
@@ -104,3 +105,5 @@ public class CocinaController {
         alerta.showAndWait();
     }
 }
+
+ */

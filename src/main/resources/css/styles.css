@@ -1,8 +1,0 @@
-@font-face {
-    font-family: 'Helvetica Bold';
-    src: url('../fonts/helveticabold.ttf');
-}
-
-#inicarsesion {
-    -fx-font-family: SansSerif;
-}

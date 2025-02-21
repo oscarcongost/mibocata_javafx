@@ -15,8 +15,6 @@ public class Pedido {
     @Column(name = "alumno_mac", nullable = false, length = 12)
     private String alumnoMac;
 
-    @Column(name = "bocadillo_nombre", nullable = false, length = 50, insertable = false, updatable = false)
-    private String bocadilloNombre;
 
     @ManyToOne
     @JoinColumn(name = "bocadillo_nombre", referencedColumnName = "nombre")
@@ -34,14 +32,23 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Long id, String alumnoMac, String bocadilloNombre, LocalDate fecha, LocalTime hora, boolean retirado) {
-        this.id = id;
+    public Pedido(String alumnoMac, Bocadillo bocadillo, LocalDate fecha, LocalTime hora, boolean retirado) {
         this.alumnoMac = alumnoMac;
-        this.bocadilloNombre = bocadilloNombre;
+        this.bocadillo = bocadillo;
         this.fecha = fecha;
         this.hora = hora;
         this.retirado = retirado;
     }
+
+    public Pedido(Long id, String alumnoMac, Bocadillo bocadillo, LocalDate fecha, LocalTime hora, boolean retirado) {
+        this.id = id;
+        this.alumnoMac = alumnoMac;
+        this.bocadillo = bocadillo;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.retirado = retirado;
+    }
+
 
     public Long getId() {
         return id;
@@ -59,13 +66,7 @@ public class Pedido {
         this.alumnoMac = alumnoMac;
     }
 
-    public String getBocadilloNombre() {
-        return bocadilloNombre;
-    }
 
-    public void setBocadilloNombre(String bocadilloNombre) {
-        this.bocadilloNombre = bocadilloNombre;
-    }
 
     public Bocadillo getBocadillo() {
         return bocadillo;
