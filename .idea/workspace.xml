@@ -5,20 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5419838-f940-4003-a73e-59bc29c1b50e" name="Changes" comment="resuelve conflicto">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/CocinaController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/utils/TipoBocadillo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_02_2025_12_19_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_02_2025_12_19__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_02_2025_12_19_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_02_2025_12_19__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/PedidoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/PedidoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Alumnos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Alumnos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Bocadillo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Bocadillo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Pedido.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Pedido.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/CocinaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/CocinaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/screens/cocinaPage.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/screens/seleccionBocata.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/screens/seleccionBocata.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/screens/cocinaPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/screens/cocinaPage.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +138,12 @@
       <workItem from="1739386557115" duration="232000" />
       <workItem from="1739387144185" duration="834000" />
       <workItem from="1739445181041" duration="8179000" />
-      <workItem from="1739468853679" duration="1059000" />
+      <workItem from="1739468853679" duration="3117000" />
+      <workItem from="1739543022450" duration="45000" />
+      <workItem from="1739543107625" duration="1767000" />
+      <workItem from="1739557447188" duration="455000" />
+      <workItem from="1739731875302" duration="428000" />
+      <workItem from="1740044420754" duration="6565000" />
     </task>
     <task id="LOCAL-00001" summary="resuelve conflicto">
       <option name="closed" value="true" />

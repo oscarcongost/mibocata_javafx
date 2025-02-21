@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 public class AlumnoService {
-    private String rolUsuario; // Variable para guardar el rol del usuario
+    private String rolUsuario;
 
     public boolean validarCredenciales(String correoUsuario, String contrasena) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -37,7 +37,7 @@ public class AlumnoService {
             if (alumno != null) {
                 rolUsuario = "alumno";
                 System.out.println("Bienvenido, Alumno.");
-                return true; // Alumno válido
+                return true;
             }
 
             System.out.println("Usuario no encontrado. Verifique sus credenciales.");

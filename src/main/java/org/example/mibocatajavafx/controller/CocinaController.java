@@ -27,8 +27,6 @@ public class CocinaController {
     @FXML
     private TableColumn<Pedido, Boolean> columnaRetirado;
     @FXML
-    private Button btnMarcarRetirado;
-    @FXML
     private TextField txtTotalCalientes;
    @FXML
    private TextField txtTotalFrios;
@@ -37,13 +35,33 @@ public class CocinaController {
 
     @FXML
     public void initialize() {
-
         columnaId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        columnaMac.setCellValueFactory(new PropertyValueFactory<>("macAlumno"));
+        columnaMac.setCellValueFactory(new PropertyValueFactory<>("alumnoMac"));
         columnaBocadillo.setCellValueFactory(new PropertyValueFactory<>("bocadilloNombre"));
         columnaFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
         columnaHora.setCellValueFactory(new PropertyValueFactory<>("hora"));
-        columnaRetirado.setCellValueFactory(new PropertyValueFactory<>("retirado"));
+        columnaRetirado.setCellFactory(tc -> new TableCell<>() {
+            private final CheckBox checkBox = new CheckBox();
+
+            {
+                checkBox.setOnAction(event -> {
+                    Pedido pedido = getTableView().getItems().get(getIndex());
+                    pedido.setRetirado(checkBox.isSelected());
+                    pedidoDAO.actualizarPedido(pedido);
+                });
+            }
+
+            @Override
+            protected void updateItem(Boolean retirado, boolean empty) {
+                super.updateItem(retirado, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    checkBox.setSelected(retirado != null && retirado);
+                    setGraphic(checkBox);
+                }
+            }
+        });
 
         cargarPedidos();
     }

@@ -47,7 +47,7 @@
 
             <TableView fx:id="tablaPedidos" prefHeight="500.0" prefWidth="1200.0">
                 <columns>
-                    <TableColumn fx:id="columnaId" prefWidth="179.0" text="ID" />
+                    <TableColumn fx:id="columnaId" prefWidth="179.0" text="ID"  />
                     <TableColumn fx:id="columnaMac" prefWidth="451.0" text="MAC del Alumno" />
                     <TableColumn fx:id="columnaBocadillo" prefWidth="457.0" text="Nombre Bocadillo" />
                     <TableColumn fx:id="columnaFecha" prefWidth="283.0" text="Fecha" />

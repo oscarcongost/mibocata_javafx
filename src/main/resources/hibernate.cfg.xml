@@ -9,7 +9,6 @@
         <property name="dialect">org.hibernate.dialect.MariaDBDialect</property>
         <property name="hibernate.show_sql">true</property>
 
-        <!--<mapping resource="ejemplo01/Profesor.hbm.xml"/>-->
         <mapping class="org.example.mibocatajavafx.models.Alumnos"/>
         <mapping class="org.example.mibocatajavafx.models.Usuario"/>
         <mapping class="org.example.mibocatajavafx.models.Pedido"/>
