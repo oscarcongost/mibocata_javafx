@@ -43,7 +43,6 @@ public class LoginController {
         Parent root;
 
         if (alumnoService.validarCredenciales(email, contrasena)) {
-            // Obtener el rol del usuario
             String rol = alumnoService.getRolUsuario();
             String nombreUsuario = alumnoService.conseguirAlumno(email);
 
@@ -59,9 +58,8 @@ public class LoginController {
                         break;
                     case "alumno":
                         loader = new FXMLLoader(HelloApplication.class.getResource("/screens/seleccionBocata.fxml"));
-                        root = loader.load(); // Cargar antes de obtener el controlador
+                        root = loader.load();
 
-                        // Obtener el controlador después de cargar el FXML
                         SeleccionBocataController seleccionBocataController = loader.getController();
                         seleccionBocataController.setNombreUsuario(nombreUsuario);
                         break;
@@ -70,12 +68,10 @@ public class LoginController {
                         return;
                 }
 
-                // Crear y mostrar la nueva ventana
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root, 1920, 1080));
                 stage.show();
 
-                // Cerrar la ventana de login
                 Stage loginStage = (Stage) emailField.getScene().getWindow();
                 loginStage.close();
             } catch (IOException e) {
@@ -85,7 +81,6 @@ public class LoginController {
             mostrarAlerta("Error de inicio de sesión", "Correo o contraseña incorrectos", Alert.AlertType.ERROR);
         }
     }
-
 
 
     private void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {

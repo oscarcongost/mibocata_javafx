@@ -37,8 +37,6 @@ public class Alumnos {
         this.correo = correo;
     }
 
-
-
     public String getMac() {
         return mac;
     }
@@ -94,4 +92,5 @@ public class Alumnos {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
 }

@@ -8,12 +8,12 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 public class AlumnoService {
-    private String rolUsuario; // Variable para guardar el rol del usuario
+    private String rolUsuario;
     private AlumnoDAO alumnoDAO = new AlumnoDAO();
 
     public boolean validarCredenciales(String correoUsuario, String contrasena) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            // Buscar en la tabla Usuario
+
             Query<Usuario> queryUsuario = session.createQuery(
                     "FROM Usuario WHERE email = :email AND contrasena = :contrasena", Usuario.class);
             queryUsuario.setParameter("email", correoUsuario);
@@ -24,11 +24,10 @@ public class AlumnoService {
                 rolUsuario = usuario.getRol().toLowerCase();
                 if (rolUsuario.equals("admin") || rolUsuario.equals("cocina")) {
                     System.out.println("Bienvenido, " + rolUsuario);
-                    return true; // Usuario válido
+                    return true;
                 }
             }
 
-            // Si no es admin ni cocina, buscar en Alumno
             Query<Alumnos> queryAlumno = session.createQuery(
                     "FROM Alumnos WHERE correo = :correo AND pass = :pass", Alumnos.class);
             queryAlumno.setParameter("correo", correoUsuario);
@@ -40,15 +39,14 @@ public class AlumnoService {
             if (alumno != null) {
                 rolUsuario = "alumno";
                 System.out.println("Bienvenido, Alumno.");
-                return true; // Alumno válido
+                return true;
             }
 
-            // Si no es usuario ni alumno, credenciales incorrectas
             System.out.println("Usuario no encontrado. Verifique sus credenciales.");
             return false;
         } catch (Exception e) {
             e.printStackTrace();
-            return false; // En caso de error en la base de datos
+            return false;
         }
     }
 
@@ -63,7 +61,6 @@ public class AlumnoService {
     public String getRolUsuario() {
         return rolUsuario;
     }
-
 
     public Alumnos conseguirAlumnoNombre(String nombreAlumno) {
         if (nombreAlumno.isBlank() || nombreAlumno.isEmpty()) {

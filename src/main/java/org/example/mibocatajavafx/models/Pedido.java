@@ -1,6 +1,7 @@
 package org.example.mibocatajavafx.models;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -14,7 +15,6 @@ public class Pedido {
 
     @Column(name = "alumno_mac", nullable = false, length = 12)
     private String alumnoMac;
-
 
     @ManyToOne
     @JoinColumn(name = "bocadillo_nombre", referencedColumnName = "nombre")
@@ -66,8 +66,6 @@ public class Pedido {
         this.alumnoMac = alumnoMac;
     }
 
-
-
     public Bocadillo getBocadillo() {
         return bocadillo;
     }
@@ -99,4 +97,5 @@ public class Pedido {
     public void setRetirado(boolean retirado) {
         this.retirado = retirado;
     }
+
 }

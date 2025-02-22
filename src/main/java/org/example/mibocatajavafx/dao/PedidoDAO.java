@@ -1,7 +1,7 @@
+
 package org.example.mibocatajavafx.dao;
 
 import jakarta.persistence.NoResultException;
-import org.example.mibocatajavafx.models.Alumnos;
 import org.example.mibocatajavafx.models.Pedido;
 import org.example.mibocatajavafx.utils.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -10,11 +10,12 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class PedidoDAO {
     public Pedido pedidoHoy(String alumnoMac) {
         LocalDate diaHoy = LocalDate.now();
-        try (Session session = HibernateUtil.getSessionFactory().openSession()){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query query = session.createQuery("from Pedido p where p.alumnoMac = :alumnoMac and p.fecha = :fecha");
             query.setParameter("alumnoMac", alumnoMac);
             query.setParameter("fecha", diaHoy);
@@ -35,7 +36,7 @@ public class PedidoDAO {
 
             if (pedido.getId() == null) {
                 session.persist(pedido);
-                session.flush(); //Forzar sincronización con la BD para obtener el ID
+                session.flush();
             } else {
                 session.merge(pedido);
             }
@@ -49,6 +50,31 @@ public class PedidoDAO {
             }
             e.printStackTrace();
             System.out.println("Error al guardar el pedido");
+        }
+    }
+
+    public void actualizarPedido(Pedido pedido) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.merge(pedido);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    public List<Pedido> recogerPedidosPendientesHoy() {
+        LocalDate diaHoy = LocalDate.now();
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query query = session.createQuery("FROM Pedido p WHERE p.fecha = :fecha AND p.retirado = false", Pedido.class);
+            query.setParameter("fecha", diaHoy);
+
+            return query.getResultList();
         }
     }
 
