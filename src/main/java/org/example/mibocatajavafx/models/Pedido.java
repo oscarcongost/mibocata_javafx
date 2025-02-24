@@ -1,7 +1,6 @@
 package org.example.mibocatajavafx.models;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -13,8 +12,9 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "alumno_mac", nullable = false, length = 12)
-    private String alumnoMac;
+    @ManyToOne
+    @JoinColumn(name = "alumno_mac", referencedColumnName = "mac", nullable = false)
+    private Alumnos alumno;
 
     @ManyToOne
     @JoinColumn(name = "bocadillo_nombre", referencedColumnName = "nombre")
@@ -29,26 +29,25 @@ public class Pedido {
     @Column(name = "retirado", nullable = false)
     private boolean retirado;
 
-    public Pedido() {
-    }
+    public Pedido() {}
 
-    public Pedido(String alumnoMac, Bocadillo bocadillo, LocalDate fecha, LocalTime hora, boolean retirado) {
-        this.alumnoMac = alumnoMac;
+
+    public Pedido(Alumnos alumno, Bocadillo bocadillo, LocalDate fecha, LocalTime hora, boolean retirado) {
+        this.alumno = alumno;
         this.bocadillo = bocadillo;
         this.fecha = fecha;
         this.hora = hora;
         this.retirado = retirado;
     }
 
-    public Pedido(Long id, String alumnoMac, Bocadillo bocadillo, LocalDate fecha, LocalTime hora, boolean retirado) {
+    public Pedido(Long id, Alumnos alumno, Bocadillo bocadillo, LocalDate fecha, LocalTime hora, boolean retirado) {
         this.id = id;
-        this.alumnoMac = alumnoMac;
+        this.alumno = alumno;
         this.bocadillo = bocadillo;
         this.fecha = fecha;
         this.hora = hora;
         this.retirado = retirado;
     }
-
 
     public Long getId() {
         return id;
@@ -58,12 +57,12 @@ public class Pedido {
         this.id = id;
     }
 
-    public String getAlumnoMac() {
-        return alumnoMac;
+    public Alumnos getAlumno() {
+        return alumno;
     }
 
-    public void setAlumnoMac(String alumnoMac) {
-        this.alumnoMac = alumnoMac;
+    public void setAlumno(Alumnos alumno) {
+        this.alumno = alumno;
     }
 
     public Bocadillo getBocadillo() {
@@ -97,5 +96,4 @@ public class Pedido {
     public void setRetirado(boolean retirado) {
         this.retirado = retirado;
     }
-
 }

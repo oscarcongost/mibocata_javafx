@@ -16,7 +16,7 @@ public class PedidoDAO {
     public Pedido pedidoHoy(String alumnoMac) {
         LocalDate diaHoy = LocalDate.now();
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("from Pedido p where p.alumnoMac = :alumnoMac and p.fecha = :fecha");
+            Query query = session.createQuery("from Pedido p where p.alumno.mac = :alumnoMac and p.fecha = :fecha");
             query.setParameter("alumnoMac", alumnoMac);
             query.setParameter("fecha", diaHoy);
 
@@ -67,15 +67,11 @@ public class PedidoDAO {
         }
     }
 
-    public List<Pedido> recogerPedidosPendientesHoy() {
-        LocalDate diaHoy = LocalDate.now();
-
+    public List<Pedido> recogerPedidosPendientes() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("FROM Pedido p WHERE p.fecha = :fecha AND p.retirado = false", Pedido.class);
-            query.setParameter("fecha", diaHoy);
-
+            Query<Pedido> query = session.createQuery("FROM Pedido p WHERE p.retirado = false ", Pedido.class);
             return query.getResultList();
+
         }
     }
-
 }

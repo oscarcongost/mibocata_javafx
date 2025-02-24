@@ -1,7 +1,6 @@
 package org.example.mibocatajavafx.models;
 
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 @Entity
@@ -11,21 +10,26 @@ public class Alumnos {
     @Id
     @Column(name = "mac", nullable = false, unique = true)
     private String mac;
+
     @Column(name = "nombre")
     private String nombre;
+
     @Column(name = "motivo_baja")
     private String motivo_baja;
+
     @Column(name = "fecha_baja")
     private Date fecha_baja;
+
     @Column(name = "abonado", nullable = false)
     private int abonado;
+
     @Column(name = "pass", nullable = false)
     private String pass;
+
     @Column(name = "correo")
     private String correo;
 
-    public Alumnos() {
-    }
+    public Alumnos() {}
 
     public Alumnos(String mac, String nombre, String motivo_baja, Date fecha_baja, int abonado, String pass, String correo) {
         this.mac = mac;
@@ -92,5 +96,4 @@ public class Alumnos {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-
 }

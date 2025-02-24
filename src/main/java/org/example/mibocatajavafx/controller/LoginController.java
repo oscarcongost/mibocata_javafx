@@ -23,18 +23,12 @@ public class LoginController {
 
     private AlumnoService alumnoService = new AlumnoService();
 
-    public LoginController() {
-        System.out.println("Constructor de LoginController");
-    }
-
     @FXML
     public void initialize() {
         System.out.println("initialize() llamado: emailField es " + emailField);
-        // Aquí puedes agregar más lógica para la inicialización, si es necesario
     }
 
     @FXML
-
     private void handleLogin() {
         String email = emailField.getText();
         String contrasena = passwordField.getText();
@@ -81,7 +75,6 @@ public class LoginController {
             mostrarAlerta("Error de inicio de sesión", "Correo o contraseña incorrectos", Alert.AlertType.ERROR);
         }
     }
-
 
     private void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
