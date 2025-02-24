@@ -16,18 +16,18 @@ public class PedidoDAO {
     public Pedido pedidoHoy(String alumnoMac) {
         LocalDate diaHoy = LocalDate.now();
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("from Pedido p where p.alumno.mac = :alumnoMac and p.fecha = :fecha");
+            Query<Pedido> query = session.createQuery("from Pedido p where p.alumno.mac = :alumnoMac and p.fecha = :fecha", Pedido.class);
             query.setParameter("alumnoMac", alumnoMac);
             query.setParameter("fecha", diaHoy);
 
-            if (query.getSingleResult() != null) {
-                return (Pedido) query.getSingleResult();
-            }
-        } catch (NoResultException e) {
-            System.out.println("No se encontro el pedido");
+            return query.uniqueResult();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            System.out.println("Error al consultar el pedido.");
+            return null;
         }
-        return null;
     }
+
 
     public void save(Pedido pedido) {
         Transaction tx = null;

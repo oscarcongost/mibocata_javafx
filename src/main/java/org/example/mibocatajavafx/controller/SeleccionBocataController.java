@@ -82,30 +82,29 @@ public class SeleccionBocataController {
         double precio = bocadillo.getPvp();
         Alumnos alumno = alumnoService.conseguirAlumnoNombre(nombreUsuario);
 
-        pedidoExistente = pedidoService.conseguirPedidoHoy(String.valueOf(alumno));
+        pedidoExistente = pedidoService.conseguirPedidoHoy(alumno.getMac());
 
         if (pedidoExistente != null) {
-            if (pedidoExistente.getBocadillo().getTipo() == bocadillo.getTipo()) {
-                bocadilloSeleccionadoLabel.setText(nombreBocadillo + " | " + precio + " €");
-                pedidoActual = pedidoExistente;
-                return;
-            } else {
-                Pedido pedidoNuevo = new Pedido(
-                        pedidoExistente.getId(),
-                        alumno,
-                        bocadillo,
-                        LocalDate.now(),
-                        LocalTime.now(),
-                        false
-                );
-                pedidoActual = pedidoNuevo;
-            }
 
+            if (!pedidoExistente.getBocadillo().getNombre().equals(bocadillo.getNombre())) {
+
+                pedidoExistente.setBocadillo(bocadillo);
+                pedidoExistente.setFecha(LocalDate.now());
+                pedidoExistente.setHora(LocalTime.now());
+
+                pedidoService.update(pedidoExistente);
+                pedidoActual = pedidoExistente;
+                mostrarAlerta("Pedido actualizado", "Tu pedido ha sido modificado.", Alert.AlertType.CONFIRMATION);
+            }
         } else {
             pedidoActual = new Pedido(alumno, bocadillo, LocalDate.now(), LocalTime.now(), false);
+            pedidoService.save(pedidoActual);
+            mostrarAlerta("Pedido creado", "Tu nuevo pedido ha sido registrado.", Alert.AlertType.CONFIRMATION);
         }
+
         bocadilloSeleccionadoLabel.setText(nombreBocadillo + " | " + precio + " €");
     }
+
 
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
@@ -188,14 +187,13 @@ public class SeleccionBocataController {
             return;
         }
 
-        if (pedidoExistente != null && pedidoExistente.getBocadillo() != null) {
-            if (pedidoActual.getBocadillo().getNombre().equals(pedidoExistente.getBocadillo().getNombre())) {
-                mostrarAlerta("Pedido ya existente", "Ya tienes este bocata seleccionado.", Alert.AlertType.WARNING);
-                return;
-            }
+        // Si ya existe un pedido para hoy, no se permite hacer otro
+        if (pedidoExistente != null) {
+            mostrarAlerta("Pedido ya existente", "Ya tienes un pedido para hoy. Solo puedes modificarlo.", Alert.AlertType.WARNING);
+            return;
         }
 
-        // Guardar el pedido con el objeto Alumnos
+        // Guardamos el pedido nuevo
         pedidoService.save(pedidoActual);
         mostrarAlerta("Pedido creado", "Tu pedido ha sido registrado con éxito.", Alert.AlertType.CONFIRMATION);
         System.out.println("Pedido creado con ID: " + pedidoActual.getId());

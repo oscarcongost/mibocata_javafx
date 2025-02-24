@@ -158,7 +158,6 @@ public class CocinaController {
     }
 
     private void actualizarTotales(List<Pedido> pedidos) {
-        // Asegurarse de que la lista no sea nula o vacía antes de continuar
         if (pedidos == null || pedidos.isEmpty()) {
             labelTotalCalientes.setText("0");
             labelTotalFrios.setText("0");
