@@ -70,7 +70,7 @@ public class LoginController {
 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root, 1920, 1080));
-                stage.show();
+                stage. show();
 
                 Stage loginStage = (Stage) emailField.getScene().getWindow();
                 loginStage.close();
