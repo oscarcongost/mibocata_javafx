@@ -1,0 +1,193 @@
+Index: src/main/java/org/example/mibocatajavafx/models/Alumnos.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.mibocatajavafx.models;\n\nimport jakarta.persistence.*;\n\nimport java.util.Date;\n\n@Entity\n@Table(name = \"Alumnos\")\npublic class Alumnos {\n\n    @Id\n    @GeneratedValue(strategy = GenerationType.IDENTITY)\n    private Long id;\n\n    @Column(name = \"mac\", nullable = false)\n    private char mac;\n    @Column(name = \"nombre\")\n    private String nombre;\n    @Column(name = \"motivo_baja\")\n    private String motivo_baja;\n    @Column(name = \"fecha_baja\")\n    private Date fecha_baja;\n    @Column(name = \"abonado\", nullable = false)\n    private int abonado;\n    @Column(name = \"pass\", nullable = false)\n    private String pass;\n    @Column(name = \"correo\")\n    private String correo;\n\n    public Alumnos() {\n    }\n\n    public Alumnos(Long id, char mac, String nombre, String motivo_baja, Date fecha_baja, int abonado, String pass, String correo) {\n        this.id = id;\n        this.mac = mac;\n        this.nombre = nombre;\n        this.motivo_baja = motivo_baja;\n        this.fecha_baja = fecha_baja;\n        this.abonado = abonado;\n        this.pass = pass;\n        this.correo = correo;\n    }\n\n    public Long getId() {\n        return id;\n    }\n\n    public void setId(Long id) {\n        this.id = id;\n    }\n\n    public char getMac() {\n        return mac;\n    }\n\n    public void setMac(char mac) {\n        this.mac = mac;\n    }\n\n    public String getNombre() {\n        return nombre;\n    }\n\n    public void setNombre(String nombre) {\n        this.nombre = nombre;\n    }\n\n    public String getMotivo_baja() {\n        return motivo_baja;\n    }\n\n    public void setMotivo_baja(String motivo_baja) {\n        this.motivo_baja = motivo_baja;\n    }\n\n    public Date getFecha_baja() {\n        return fecha_baja;\n    }\n\n    public void setFecha_baja(Date fecha_baja) {\n        this.fecha_baja = fecha_baja;\n    }\n\n    public int getAbonado() {\n        return abonado;\n    }\n\n    public void setAbonado(int abonado) {\n        this.abonado = abonado;\n    }\n\n    public String getPass() {\n        return pass;\n    }\n\n    public void setPass(String pass) {\n        this.pass = pass;\n    }\n\n    public String getCorreo() {\n        return correo;\n    }\n\n    public void setCorreo(String correo) {\n        this.correo = correo;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/mibocatajavafx/models/Alumnos.java b/src/main/java/org/example/mibocatajavafx/models/Alumnos.java
+--- a/src/main/java/org/example/mibocatajavafx/models/Alumnos.java	(revision c0f546a3a247a152302f4f94642a3b14f984f58b)
++++ b/src/main/java/org/example/mibocatajavafx/models/Alumnos.java	(date 1740160130778)
+@@ -53,7 +53,7 @@
+         return mac;
+     }
+ 
+-    public void setMac(char mac) {
++    public void setMac(char mwac) {
+         this.mac = mac;
+     }
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"e5419838-f940-4003-a73e-59bc29c1b50e\" name=\"Changes\" comment=\"resuelve conflicto\">\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/UsuarioDAO.java\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/hibernate.cfg.xml\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Usuarios.java\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/services/AlumnosService.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/pom.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pom.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/module-info.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/module-info.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Alumnos.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Alumnos.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/utils/HibernateUtil.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/utils/HibernateUtil.java\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"MavenImportPreferences\">\n    <option name=\"generalSettings\">\n      <MavenGeneralSettings>\n        <option name=\"mavenHomeTypeForPersistence\" value=\"WRAPPER\" />\n      </MavenGeneralSettings>\n    </option>\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 6\n}</component>\n  <component name=\"ProjectId\" id=\"2sfmNKVDZ9PQb0UyPlIvKPTWyvj\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;seleccion__bocadillo&quot;,\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  }\n}</component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150\" />\n        <option value=\"bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"e5419838-f940-4003-a73e-59bc29c1b50e\" name=\"Changes\" comment=\"\" />\n      <created>1738854962898</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1738854962898</updated>\n      <workItem from=\"1738854963943\" duration=\"1000\" />\n      <workItem from=\"1738855755934\" duration=\"223000\" />\n      <workItem from=\"1738855982178\" duration=\"8000\" />\n      <workItem from=\"1739202596803\" duration=\"88000\" />\n      <workItem from=\"1739202696148\" duration=\"7335000\" />\n      <workItem from=\"1739296046218\" duration=\"562000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"resuelve conflicto\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1738952957089</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1738952957089</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"2\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"resuelve conflicto\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"resuelve conflicto\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision c0f546a3a247a152302f4f94642a3b14f984f58b)
++++ b/.idea/workspace.xml	(date 1740160130922)
+@@ -5,16 +5,15 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="e5419838-f940-4003-a73e-59bc29c1b50e" name="Changes" comment="resuelve conflicto">
+-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/UsuarioDAO.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/hibernate.cfg.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Usuarios.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/services/AlumnosService.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_02_2025_12_19_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_02_2025_12_19__Changes_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_02_2025_12_19_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_02_2025_12_19__Changes_.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Alumnos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Alumnos.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/utils/HibernateUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/utils/HibernateUtil.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/CocinaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/CocinaController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/screens/cocinaPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/screens/cocinaPage.fxml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -24,13 +23,31 @@
+   <component name="FileTemplateManagerImpl">
+     <option name="RECENT_TEMPLATES">
+       <list>
++        <option value="FxmlFile" />
+         <option value="Class" />
+       </list>
+     </option>
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="seleccion_bocadillo" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
++  <component name="GitHubPullRequestSearchHistory">{
++  &quot;lastFilter&quot;: {
++    &quot;state&quot;: &quot;OPEN&quot;,
++    &quot;assignee&quot;: &quot;AlexElMejor54&quot;
++  }
++}</component>
++  <component name="GithubPullRequestsUISettings">{
++  &quot;selectedUrlAndAccountId&quot;: {
++    &quot;url&quot;: &quot;https://github.com/oscarcongost/mibocata_javafx.git&quot;,
++    &quot;accountId&quot;: &quot;5da7bd6d-e91a-4926-be87-03df634b6c4b&quot;
++  }
++}</component>
+   <component name="MavenImportPreferences">
+     <option name="generalSettings">
+       <MavenGeneralSettings>
+@@ -51,17 +68,50 @@
+   </component>
+   <component name="PropertiesComponent">{
+   &quot;keyToString&quot;: {
++    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;seleccion__bocadillo&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;panel__cocina&quot;,
+     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;/Users/alejandri/IdeaProjects/mibocata_javafx/src/main/resources/assets&quot;,
+     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+ }</component>
++  <component name="RecentsManager">
++    <key name="CopyFile.RECENT_KEYS">
++      <recent name="$PROJECT_DIR$/src/main/resources/assets" />
++      <recent name="$PROJECT_DIR$/src/main/resources/fonts" />
++    </key>
++    <key name="MoveFile.RECENT_KEYS">
++      <recent name="$PROJECT_DIR$/src/main/resources" />
++      <recent name="$PROJECT_DIR$/src/main/resources/screens" />
++    </key>
++  </component>
++  <component name="RunManager">
++    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="org.example.mibocatajavafx.HelloApplication" />
++      <module name="mibocata-javaFX" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="org.example.mibocatajavafx.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <recent_temporary>
++      <list>
++        <item itemvalue="Application.HelloApplication" />
++      </list>
++    </recent_temporary>
++  </component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+@@ -81,17 +131,27 @@
+       <workItem from="1738854963943" duration="1000" />
+       <workItem from="1738855755934" duration="223000" />
+       <workItem from="1738855982178" duration="8000" />
+-      <workItem from="1739202596803" duration="88000" />
+-      <workItem from="1739202696148" duration="7335000" />
+-      <workItem from="1739296046218" duration="562000" />
++      <workItem from="1738855992144" duration="4437000" />
++      <workItem from="1738943963658" duration="8957000" />
++      <workItem from="1739203222419" duration="5568000" />
++      <workItem from="1739294958601" duration="1559000" />
++      <workItem from="1739386557115" duration="232000" />
++      <workItem from="1739387144185" duration="834000" />
++      <workItem from="1739445181041" duration="8179000" />
++      <workItem from="1739468853679" duration="3117000" />
++      <workItem from="1739543022450" duration="45000" />
++      <workItem from="1739543107625" duration="1767000" />
++      <workItem from="1739557447188" duration="455000" />
++      <workItem from="1739731875302" duration="428000" />
++      <workItem from="1740044420754" duration="6565000" />
+     </task>
+     <task id="LOCAL-00001" summary="resuelve conflicto">
+       <option name="closed" value="true" />
+-      <created>1738952957089</created>
++      <created>1739297068261</created>
+       <option name="number" value="00001" />
+       <option name="presentableId" value="LOCAL-00001" />
+       <option name="project" value="LOCAL" />
+-      <updated>1738952957089</updated>
++      <updated>1739297068261</updated>
+     </task>
+     <option name="localTasksCounter" value="2" />
+     <servers />
+@@ -114,4 +174,8 @@
+     <MESSAGE value="resuelve conflicto" />
+     <option name="LAST_COMMIT_MESSAGE" value="resuelve conflicto" />
+   </component>
++  <component name="XSLT-Support.FileAssociations.UIState">
++    <expand />
++    <select />
++  </component>
+ </project>
+\ No newline at end of file
+diff --git a/src/main/resources/css/login.css b/src/main/resources/css/login.css
+new file mode 100644
+diff --git a/src/main/java/org/example/mibocatajavafx/service/PedidoService.java b/src/main/java/org/example/mibocatajavafx/service/PedidoService.java
+new file mode 100644
+diff --git a/src/main/java/org/example/mibocatajavafx/controller/SeleccionBocataController.java b/src/main/java/org/example/mibocatajavafx/controller/SeleccionBocataController.java
+new file mode 100644
+diff --git a/src/main/java/org/example/mibocatajavafx/utils/UsuarioSesion.java b/src/main/java/org/example/mibocatajavafx/utils/UsuarioSesion.java
+new file mode 100644
+diff --git a/src/main/java/org/example/mibocatajavafx/dao/BocataDAO.java b/src/main/java/org/example/mibocatajavafx/dao/BocataDAO.java
+new file mode 100644
+diff --git a/src/main/java/org/example/mibocatajavafx/service/BocataService.java b/src/main/java/org/example/mibocatajavafx/service/BocataService.java
+new file mode 100644

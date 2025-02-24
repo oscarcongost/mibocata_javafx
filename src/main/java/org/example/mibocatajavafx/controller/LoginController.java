@@ -78,7 +78,7 @@ public class LoginController {
                 e.printStackTrace();
             }
         } else {
-            mostrarAlerta("Error de inicio de sesión", "Correo o contraseña incorrectos", Alert.AlertType.ERROR);
+            mostrarAlerta("Error de inicio de sesión", "Correo o contraseña incorrectos", Alert.AlertType.INFORMATION);
         }
     }
 

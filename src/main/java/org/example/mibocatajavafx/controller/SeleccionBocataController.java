@@ -19,7 +19,6 @@ import org.example.mibocatajavafx.service.PedidoService;
 import org.example.mibocatajavafx.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -63,6 +62,7 @@ public class SeleccionBocataController {
     @FXML
     private Button btnConfirmar;
 
+
     @FXML
     public void initialize() {
         if (nombreUsuario != null) {
@@ -70,10 +70,15 @@ public class SeleccionBocataController {
         }
         cargarBocadillosDeHoy();
 
-        vboxFrio.setOnMouseClicked(mouseEvent -> seleccionarBocadillo("frio"));
-        vboxCaliente.setOnMouseClicked(mouseEvent -> seleccionarBocadillo("caliente"));
+        vboxFrio.setOnMouseClicked(mouseEvent ->seleccionarBocadillo("frio"));
+        vboxCaliente.setOnMouseClicked(mouseEvent ->seleccionarBocadillo("caliente"));
 
         btnConfirmar.setOnMouseClicked(mouseEvent -> realizarPedido());
+
+        Scene scene = nombreLabel.getScene();
+        if (scene != null) {
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+        }
     }
 
     private void seleccionarBocadillo(String tipo) {
@@ -85,8 +90,8 @@ public class SeleccionBocataController {
         pedidoExistente = pedidoService.conseguirPedidoHoy(alumno.getMac());
 
         if (pedidoExistente != null) {
-            if (pedidoExistente.getBocadillo().getTipo() == bocadillo.getTipo()) {
-                bocadilloSeleccionadoLabel.setText(nombreBocadillo + " | " + precio + " €");
+            if (pedidoExistente.getBocadillo().getTipo() == bocadillo.getTipo()){
+                bocadilloSeleccionadoLabel.setText("Bocadillo Seleccionado: "+nombreBocadillo + " | " +precio + " €");
                 pedidoActual = pedidoExistente;
                 return;
             } else {
@@ -103,10 +108,12 @@ public class SeleccionBocataController {
             }
 
         } else {
-            pedidoActual = new Pedido(alumno.getMac(), bocadillo, LocalDate.now(), LocalTime.now(), false);
+            pedidoActual = new Pedido(alumno.getMac(), bocadillo,LocalDate.now(),LocalTime.now(),false);
         }
-        bocadilloSeleccionadoLabel.setText(nombreBocadillo + " | " + precio + " €");
+        bocadilloSeleccionadoLabel.setText("Bocadillo Seleccionado: "+nombreBocadillo + " | "+ precio+" €");
     }
+
+
 
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
@@ -167,15 +174,18 @@ public class SeleccionBocataController {
     @FXML
     private void cerrarSesion() {
         try {
+            // Cargar la pantalla de login
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/loginScreen.fxml"));
             Parent root = loader.load();
 
+            // Crear una nueva ventana para la pantalla de login
             Stage loginStage = new Stage();
             loginStage.setScene(new Scene(root, 1920, 1080));
             loginStage.setTitle("Iniciar Sesión");
             loginStage.setResizable(false); // Evita que se redimensione
             loginStage.show();
 
+            // Cerrar la ventana actual (SeleccionBocata)
             Stage currentStage = (Stage) btnCerrarSesion.getScene().getWindow();
             currentStage.close();
         } catch (IOException e) {
@@ -189,6 +199,7 @@ public class SeleccionBocataController {
             return;
         }
 
+        // Verificar si ya hay un pedido existente y si tiene un bocadillo asociado
         if (pedidoExistente != null && pedidoExistente.getBocadillo() != null) {
             if (pedidoActual.getBocadillo().getNombre().equals(pedidoExistente.getBocadillo().getNombre())) {
                 mostrarAlerta("Pedido ya existente", "Ya tienes este bocata seleccionado.", Alert.AlertType.WARNING);
@@ -196,10 +207,12 @@ public class SeleccionBocataController {
             }
         }
 
+        // Guardar el nuevo pedido
         pedidoService.save(pedidoActual);
         mostrarAlerta("Pedido creado", "Tu pedido ha sido registrado con éxito.", Alert.AlertType.CONFIRMATION);
         System.out.println("Pedido creado con ID: " + pedidoActual.getId());
     }
+
 
     private void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
@@ -207,5 +220,7 @@ public class SeleccionBocataController {
         alert.setContentText(contenido);
         alert.showAndWait();
     }
+
+
 
 }

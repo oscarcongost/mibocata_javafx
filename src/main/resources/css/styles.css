@@ -1,0 +1,11 @@
+#vboxFrio:hover {
+    -fx-background-color: #c8e6c9; /* Un verde más claro */
+    -fx-border-color: #388E3C;
+    -fx-cursor: hand;
+}
+
+#vboxCaliente:hover {
+    -fx-background-color: #FFCDD2; /* Un rojo más claro */
+    -fx-border-color: #D32F2F;
+    -fx-cursor: hand;
+}

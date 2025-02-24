@@ -1,0 +1,17 @@
+Index: src/main/java/org/example/mibocatajavafx/models/Alumnos.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.mibocatajavafx.models;\n\nimport jakarta.persistence.*;\nimport java.util.Date;\n\n@Entity\n@Table(name = \"Alumno\")\npublic class Alumnos {\n\n    @Id\n    @Column(name = \"mac\", nullable = false, unique = true)\n    private char mac;\n\n    @Column(name = \"nombre\")\n    private String nombre;\n\n    @Column(name = \"motivo_baja\")\n    private String motivo_baja;\n\n    @Column(name = \"fecha_baja\")\n    private Date fecha_baja;\n\n    @Column(name = \"abonado\", nullable = false)\n    private int abonado;\n\n    @Column(name = \"pass\", nullable = false)\n    private String pass;\n\n    @Column(name = \"correo\")\n    private String correo;\n\n    public Alumnos() {\n    }\n\n    public Alumnos(char mac, String nombre, String motivo_baja, Date fecha_baja, int abonado, String pass, String correo) {\n        this.mac = mac;\n        this.nombre = nombre;\n        this.motivo_baja = motivo_baja;\n        this.fecha_baja = fecha_baja;\n        this.abonado = abonado;\n        this.pass = pass;\n        this.correo = correo;\n    }\n\n    public char getMac() {\n        return mac;\n    }\n\n    public void setMac(char mac) {\n        this.mac = mac;\n    }\n\n    public String getNombre() {\n        return nombre;\n    }\n\n    public void setNombre(String nombre) {\n        this.nombre = nombre;\n    }\n\n    public String getMotivo_baja() {\n        return motivo_baja;\n    }\n\n    public void setMotivo_baja(String motivo_baja) {\n        this.motivo_baja = motivo_baja;\n    }\n\n    public Date getFecha_baja() {\n        return fecha_baja;\n    }\n\n    public void setFecha_baja(Date fecha_baja) {\n        this.fecha_baja = fecha_baja;\n    }\n\n    public int getAbonado() {\n        return abonado;\n    }\n\n    public void setAbonado(int abonado) {\n        this.abonado = abonado;\n    }\n\n    public String getPass() {\n        return pass;\n    }\n\n    public void setPass(String pass) {\n        this.pass = pass;\n    }\n\n    public String getCorreo() {\n        return correo;\n    }\n\n    public void setCorreo(String correo) {\n        this.correo = correo;\n    }\n\n}
+===================================================================
+diff --git a/src/main/java/org/example/mibocatajavafx/models/Alumnos.java b/src/main/java/org/example/mibocatajavafx/models/Alumnos.java
+--- a/src/main/java/org/example/mibocatajavafx/models/Alumnos.java	
++++ b/src/main/java/org/example/mibocatajavafx/models/Alumnos.java	
+@@ -46,7 +46,7 @@
+         return mac;
+     }
+ 
+-    public void setMac(char mac) {
++    public void setMac(char mwac) {
+         this.mac = mac;
+     }
+ 

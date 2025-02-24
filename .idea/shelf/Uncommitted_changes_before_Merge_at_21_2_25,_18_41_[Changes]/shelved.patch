@@ -1,0 +1,1739 @@
+Index: src/main/java/org/example/mibocatajavafx/models/Alumnos.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.mibocatajavafx.models;\n\nimport jakarta.persistence.*;\n\nimport java.util.Date;\n\n@Entity\n@Table(name = \"Alumno\")\npublic class Alumnos {\n\n\n\n    @Id\n    @Column(name = \"mac\", nullable = false, unique = true)\n    private char mac;\n    @Column(name = \"nombre\")\n    private String nombre;\n    @Column(name = \"motivo_baja\")\n    private String motivo_baja;\n    @Column(name = \"fecha_baja\")\n    private Date fecha_baja;\n    @Column(name = \"abonado\", nullable = false)\n    private int abonado;\n    @Column(name = \"pass\", nullable = false)\n    private String pass;\n    @Column(name = \"correo\")\n    private String correo;\n\n    public Alumnos() {\n    }\n\n    public Alumnos(char mac, String nombre, String motivo_baja, Date fecha_baja, int abonado, String pass, String correo) {\n        this.mac = mac;\n        this.nombre = nombre;\n        this.motivo_baja = motivo_baja;\n        this.fecha_baja = fecha_baja;\n        this.abonado = abonado;\n        this.pass = pass;\n        this.correo = correo;\n    }\n\n\n\n    public char getMac() {\n        return mac;\n    }\n\n    public void setMac(char mac) {\n        this.mac = mac;\n    }\n\n    public String getNombre() {\n        return nombre;\n    }\n\n    public void setNombre(String nombre) {\n        this.nombre = nombre;\n    }\n\n    public String getMotivo_baja() {\n        return motivo_baja;\n    }\n\n    public void setMotivo_baja(String motivo_baja) {\n        this.motivo_baja = motivo_baja;\n    }\n\n    public Date getFecha_baja() {\n        return fecha_baja;\n    }\n\n    public void setFecha_baja(Date fecha_baja) {\n        this.fecha_baja = fecha_baja;\n    }\n\n    public int getAbonado() {\n        return abonado;\n    }\n\n    public void setAbonado(int abonado) {\n        this.abonado = abonado;\n    }\n\n    public String getPass() {\n        return pass;\n    }\n\n    public void setPass(String pass) {\n        this.pass = pass;\n    }\n\n    public String getCorreo() {\n        return correo;\n    }\n\n    public void setCorreo(String correo) {\n        this.correo = correo;\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/mibocatajavafx/models/Alumnos.java b/src/main/java/org/example/mibocatajavafx/models/Alumnos.java
+--- a/src/main/java/org/example/mibocatajavafx/models/Alumnos.java	
++++ b/src/main/java/org/example/mibocatajavafx/models/Alumnos.java	
+@@ -8,11 +8,9 @@
+ @Table(name = "Alumno")
+ public class Alumnos {
+ 
+-
+-
+     @Id
+     @Column(name = "mac", nullable = false, unique = true)
+-    private char mac;
++    private String mac;
+     @Column(name = "nombre")
+     private String nombre;
+     @Column(name = "motivo_baja")
+@@ -29,7 +27,7 @@
+     public Alumnos() {
+     }
+ 
+-    public Alumnos(char mac, String nombre, String motivo_baja, Date fecha_baja, int abonado, String pass, String correo) {
++    public Alumnos(String mac, String nombre, String motivo_baja, Date fecha_baja, int abonado, String pass, String correo) {
+         this.mac = mac;
+         this.nombre = nombre;
+         this.motivo_baja = motivo_baja;
+@@ -41,11 +39,11 @@
+ 
+ 
+ 
+-    public char getMac() {
++    public String getMac() {
+         return mac;
+     }
+ 
+-    public void setMac(char mac) {
++    public void setMac(String mac) {
+         this.mac = mac;
+     }
+ 
+Index: src/main/java/org/example/mibocatajavafx/controller/LoginController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.mibocatajavafx.controller;\n\nimport javafx.fxml.FXML;\nimport javafx.scene.control.Alert;\nimport javafx.scene.control.PasswordField;\nimport javafx.scene.control.TextField;\nimport javafx.scene.Scene;\nimport javafx.stage.Stage;\nimport javafx.fxml.FXMLLoader;\nimport javafx.scene.Parent;\nimport org.example.mibocatajavafx.HelloApplication;\nimport org.example.mibocatajavafx.service.AlumnoService;\n\nimport java.io.IOException;\n\npublic class LoginController {\n\n    @FXML\n    private TextField emailField;\n\n    @FXML\n    private PasswordField passwordField;\n\n    private AlumnoService alumnoService = new AlumnoService();\n\n    public LoginController() {\n        System.out.println(\"Constructor de LoginController\");\n    }\n\n    @FXML\n    public void initialize() {\n        System.out.println(\"initialize() llamado: emailField es \" + emailField);\n        // Aquí puedes agregar más lógica para la inicialización, si es necesario\n    }\n\n    @FXML\n    private void handleLogin() {\n        String email = emailField.getText();\n        String contrasena = passwordField.getText();\n\n        FXMLLoader loader;\n        Parent root;\n\n        if (alumnoService.validarCredenciales(email, contrasena)) {\n            // Obtener el rol del usuario\n            String rol = alumnoService.getRolUsuario();\n\n\n            // Decidir a qué página redirigir dependiendo del rol\n            switch (rol) {\n                case \"admin\":\n                    loader = new FXMLLoader(HelloApplication.class.getResource(\"/screens/adminPage.fxml\"));\n                    break;\n                case \"cocina\":\n                    loader = new FXMLLoader(HelloApplication.class.getResource(\"/screens/cocinaPage.fxml\"));\n                    break;\n                case \"alumno\":\n                    loader = new FXMLLoader(HelloApplication.class.getResource(\"/screens/seleccionBocata.fxml\"));\n                    break;\n                default:\n                    System.out.println(\"Rol desconocido.\");\n                    return;\n            }\n\n            // Cargar la página correspondiente\n            try {\n                root = loader.load();\n                Stage stage = new Stage();\n                stage.setScene(new Scene(root));\n                stage.show(); // Muestra la nueva ventana\n                // Cerrar la ventana de login\n                Stage loginStage = (Stage) emailField.getScene().getWindow();\n                loginStage.close();\n            } catch (IOException e) {\n                e.printStackTrace();\n            }\n        } else {\n            mostrarAlerta(\"Error de inicio de sesión\", \"Correo o contraseña incorrectos\", Alert.AlertType.ERROR);\n        }\n    }\n\n    private void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {\n        Alert alert = new Alert(tipo);\n        alert.setTitle(titulo);\n        alert.setContentText(contenido);\n        alert.showAndWait();\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/mibocatajavafx/controller/LoginController.java b/src/main/java/org/example/mibocatajavafx/controller/LoginController.java
+--- a/src/main/java/org/example/mibocatajavafx/controller/LoginController.java	
++++ b/src/main/java/org/example/mibocatajavafx/controller/LoginController.java	
+@@ -34,6 +34,7 @@
+     }
+ 
+     @FXML
++
+     private void handleLogin() {
+         String email = emailField.getText();
+         String contrasena = passwordField.getText();
+@@ -44,30 +45,36 @@
+         if (alumnoService.validarCredenciales(email, contrasena)) {
+             // Obtener el rol del usuario
+             String rol = alumnoService.getRolUsuario();
++            String nombreUsuario = alumnoService.conseguirAlumno(email);
+ 
+-
+-            // Decidir a qué página redirigir dependiendo del rol
+-            switch (rol) {
+-                case "admin":
+-                    loader = new FXMLLoader(HelloApplication.class.getResource("/screens/adminPage.fxml"));
+-                    break;
+-                case "cocina":
+-                    loader = new FXMLLoader(HelloApplication.class.getResource("/screens/cocinaPage.fxml"));
+-                    break;
+-                case "alumno":
+-                    loader = new FXMLLoader(HelloApplication.class.getResource("/screens/seleccionBocata.fxml"));
+-                    break;
+-                default:
+-                    System.out.println("Rol desconocido.");
+-                    return;
+-            }
++            try {
++                switch (rol) {
++                    case "admin":
++                        loader = new FXMLLoader(HelloApplication.class.getResource("/screens/adminPage.fxml"));
++                        root = loader.load();
++                        break;
++                    case "cocina":
++                        loader = new FXMLLoader(HelloApplication.class.getResource("/screens/cocinaPage.fxml"));
++                        root = loader.load();
++                        break;
++                    case "alumno":
++                        loader = new FXMLLoader(HelloApplication.class.getResource("/screens/seleccionBocata.fxml"));
++                        root = loader.load(); // Cargar antes de obtener el controlador
++
++                        // Obtener el controlador después de cargar el FXML
++                        SeleccionBocataController seleccionBocataController = loader.getController();
++                        seleccionBocataController.setNombreUsuario(nombreUsuario);
++                        break;
++                    default:
++                        System.out.println("Rol desconocido.");
++                        return;
++                }
+ 
+-            // Cargar la página correspondiente
+-            try {
+-                root = loader.load();
++                // Crear y mostrar la nueva ventana
+                 Stage stage = new Stage();
+-                stage.setScene(new Scene(root));
+-                stage.show(); // Muestra la nueva ventana
++                stage.setScene(new Scene(root, 1920, 1080));
++                stage.show();
++
+                 // Cerrar la ventana de login
+                 Stage loginStage = (Stage) emailField.getScene().getWindow();
+                 loginStage.close();
+@@ -79,6 +86,8 @@
+         }
+     }
+ 
++
++
+     private void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {
+         Alert alert = new Alert(tipo);
+         alert.setTitle(titulo);
+Index: src/main/resources/screens/seleccionBocata.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<?import javafx.geometry.Insets?>\n<?import javafx.scene.image.Image?>\n<?import javafx.scene.image.ImageView?>\n<?import javafx.scene.layout.AnchorPane?>\n<?import javafx.scene.layout.BorderPane?>\n<?import javafx.scene.layout.StackPane?>\n<?import javafx.scene.layout.VBox?>\n\n<StackPane maxHeight=\"-Infinity\" maxWidth=\"-Infinity\" minHeight=\"-Infinity\" minWidth=\"-Infinity\" prefHeight=\"1080.0\" prefWidth=\"1920.0\" xmlns=\"http://javafx.com/javafx/23.0.1\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"org.example.mibocatajavafx.controller.AlumnoController\">\n    <children>\n        <BorderPane prefHeight=\"200.0\" prefWidth=\"200.0\">\n            <top>\n                <AnchorPane prefHeight=\"134.0\" prefWidth=\"1916.0\" style=\"-fx-background-color: #1d1d1b;\" BorderPane.alignment=\"CENTER\">\n                    <children>\n                        <ImageView fitHeight=\"120.0\" fitWidth=\"150.0\" pickOnBounds=\"true\" preserveRatio=\"true\" x=\"100.0\" y=\"5.0\">\n                            <image>\n                                <Image url=\"@../assets/img.png\" />\n                            </image>\n                        </ImageView>\n                    </children>\n                </AnchorPane>\n            </top>\n        </BorderPane>\n        <VBox alignment=\"CENTER\" prefHeight=\"200.0\" prefWidth=\"100.0\" spacing=\"100.0\">\n            <padding>\n                <Insets left=\"700.0\" right=\"700.0\" top=\"150.0\" />\n            </padding>\n        </VBox>\n    </children>\n</StackPane>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/screens/seleccionBocata.fxml b/src/main/resources/screens/seleccionBocata.fxml
+--- a/src/main/resources/screens/seleccionBocata.fxml	
++++ b/src/main/resources/screens/seleccionBocata.fxml	
+@@ -1,32 +1,115 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ 
+ <?import javafx.geometry.Insets?>
++<?import javafx.scene.control.Button?>
++<?import javafx.scene.control.Label?>
+ <?import javafx.scene.image.Image?>
+ <?import javafx.scene.image.ImageView?>
+-<?import javafx.scene.layout.AnchorPane?>
+ <?import javafx.scene.layout.BorderPane?>
+-<?import javafx.scene.layout.StackPane?>
++<?import javafx.scene.layout.HBox?>
++<?import javafx.scene.layout.Region?>
+ <?import javafx.scene.layout.VBox?>
+ 
+-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mibocatajavafx.controller.AlumnoController">
+-    <children>
+-        <BorderPane prefHeight="200.0" prefWidth="200.0">
+-            <top>
+-                <AnchorPane prefHeight="134.0" prefWidth="1916.0" style="-fx-background-color: #1d1d1b;" BorderPane.alignment="CENTER">
+-                    <children>
+-                        <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" x="100.0" y="5.0">
+-                            <image>
+-                                <Image url="@../assets/img.png" />
+-                            </image>
+-                        </ImageView>
+-                    </children>
+-                </AnchorPane>
+-            </top>
+-        </BorderPane>
+-        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="100.0">
+-            <padding>
+-                <Insets left="700.0" right="700.0" top="150.0" />
+-            </padding>
++<BorderPane prefHeight="1080.0" prefWidth="1080.0" style="-fx-background-color: #1d1d1b;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mibocatajavafx.controller.SeleccionBocataController">
++    <!-- Encabezado con línea debajo -->
++    <top>
++        <VBox>
++            <HBox alignment="CENTER" spacing="350.0" style="-fx-background-color: #1d1d1b; -fx-padding: 15px;">
++                <!-- Logo -->
++                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
++                    <image>
++                        <Image url="@../assets/img.png" />
++                    </image>
++                </ImageView>
++                <!-- Título -->
++                <Label style="-fx-text-fill: white; -fx-font-size: 35px; -fx-font-weight: bold; -fx-font-family: 'System';" text="SELECCIÓN BOCATA">
++                    <HBox.margin>
++                        <Insets left="40.0" />
++                    </HBox.margin>
++                </Label>
++                <!-- Nombre del usuario -->
++                <VBox alignment="CENTER" spacing="10.0">
++                    <Label fx:id="nombreLabel" style="-fx-text-fill: white; -fx-font-size: 30px; -fx-font-weight: bold;" text="Usuario" />
++
++                    <Button fx:id="btnCerrarSesion" onAction="#cerrarSesion" style="-fx-background-color: #ffffff; -fx-text-fill: Black; -fx-font-size: 16px; -fx-padding: 10px; -fx-font-weight: Bold; -fx-border-color: Red; -fx-border-width: 3px; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-border-insets: -1;" text="Cerrar Sesión" />
++                </VBox>
++
++            </HBox>
++            <!-- Línea debajo del encabezado (usando un Region con borde) -->
++            <Region style="-fx-border-color: #eeeeee; -fx-border-width: 0 0 2 0;" />
++        </VBox>
++    </top>
++
++    <!-- Contenido central con los "botones" simulados -->
++    <center>
++        <VBox alignment="CENTER" spacing="30.0" VBox.vgrow="ALWAYS">
++            <HBox alignment="CENTER" spacing="100.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
++
++                <!-- Columna izquierda: Botón Bocadillo Frío -->
++                <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
++                    <!-- Texto encima del botón -->
++                    <Label style="-fx-text-fill: #5CB338; -fx-font-size: 22px; -fx-font-weight: bold;" text="Bocadillo Frío">
++                  <VBox.margin>
++                     <Insets left="45.0" />
++                  </VBox.margin></Label>
++                    <!-- VBox simulando un botón -->
++                    <VBox fx:id="vboxFrio" alignment="CENTER" prefHeight="240.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #008000; -fx-border-width: 5px; -fx-border-radius: 8px; -fx-padding: 20px; -fx-background-radius: 12px;">
++                        <Label fx:id="nombreFrio" style="-fx-text-fill: #5CB338; -fx-font-size: 20px; -fx-font-weight: Bold;" text="Salmon">
++                     <VBox.margin>
++                        <Insets bottom="10.0" />
++                     </VBox.margin></Label>
++                        <Label fx:id="ingredientesFrio" style="-fx-text-fill: #5CB338; -fx-font-size: 18px; -fx-font-weight: Bold;" text="Ejemplo: Jamón y queso" />
++                        <Label fx:id="precioFrio" style="-fx-text-fill: #5CB338; -fx-font-size: 17px; -fx-font-weight: Bold;" text="Ideal para días frescos" />
++                  <VBox.margin>
++                     <Insets left="50.0" />
++                  </VBox.margin>
++                    </VBox>
++                </VBox>
++
++                <!-- Línea vertical entre los botones -->
++                <Region maxHeight="Infinity" minHeight="0" style="-fx-border-color: #eeeeee; -fx-border-width: 0 2 0 0;" VBox.vgrow="ALWAYS" />
++
++                <!-- Columna derecha: Botón Bocadillo Caliente -->
++                <VBox alignment="CENTER" spacing="25.0" HBox.hgrow="ALWAYS">
++                    <!-- Texto encima del botón -->
++                    <Label style="-fx-text-fill: #E52020; -fx-font-size: 22px; -fx-font-weight: bold;" text="Bocadillo Caliente">
++                  <VBox.margin>
++                     <Insets bottom="-15.0" right="45.0" />
++                  </VBox.margin></Label>
++                    <!-- VBox simulando un botón -->
++                    <VBox fx:id="vboxCaliente" alignment="CENTER" prefHeight="240.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #B22222; -fx-border-width: 5px; -fx-border-radius: 8px; -fx-padding: 20px; -fx-background-radius: 12px;">
++                        <Label fx:id="nombreCaliente" style="-fx-text-fill: #E52020; -fx-font-size: 20px; -fx-font-weight: Bold;" text="Salmon">
++                     <VBox.margin>
++                        <Insets bottom="10.0" />
++                     </VBox.margin></Label>
++                        <Label fx:id="ingredientesCaliente" style="-fx-text-fill: #E52020; -fx-font-size: 18px; -fx-font-weight: Bold;" text="Atun" />
++                        <Label fx:id="precioCaliente" style="-fx-text-fill: #E52020; -fx-font-size: 17px; -fx-font-weight: Bold;" text="3,80" />
++                  <VBox.margin>
++                     <Insets right="50.0" />
++                  </VBox.margin>
++                    </VBox>
++                </VBox>
++            </HBox>
++        </VBox>
++    </center>
++
++    <!-- Línea y Botón Confirmar Pedido en la parte inferior -->
++    <bottom>
++        <VBox>
++            <!-- Línea arriba del botón Confirmar Pedido (usando un Region con borde) -->
++            <Region style="-fx-border-color: #eeeeee; -fx-border-width: 2 0 0 0;" />
++
++            <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-padding: 20px;" HBox.hgrow="ALWAYS">
++                <!-- Label de Bocadillo Seleccionado alineado a la izquierda -->
++                <Label fx:id="bocadilloSeleccionadoLabel" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: Bold;" text="No hay bocadillo seleccionado" />
++
++                <!-- Espaciador flexible -->
++                <Region HBox.hgrow="ALWAYS" />
++
++                <!-- Botón Confirmar Pedido alineado a la derecha -->
++                <Button fx:id="btnConfirmar" style="-fx-background-color: #eeeeee; -fx-text-fill: Black; -fx-font-size: 17px; -fx-padding: 15px 30px; -fx-font-weight: Bold;" text="Confirmar Pedido" />
++            </HBox>
++
+         </VBox>
+-    </children>
+-</StackPane>
++    </bottom>
++</BorderPane>
+Index: src/main/java/org/example/mibocatajavafx/service/PedidoService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/mibocatajavafx/service/PedidoService.java b/src/main/java/org/example/mibocatajavafx/service/PedidoService.java
+new file mode 100644
+--- /dev/null	
++++ b/src/main/java/org/example/mibocatajavafx/service/PedidoService.java	
+@@ -0,0 +1,25 @@
++package org.example.mibocatajavafx.service;
++
++import org.example.mibocatajavafx.dao.PedidoDAO;
++import org.example.mibocatajavafx.models.Alumnos;
++import org.example.mibocatajavafx.models.Pedido;
++
++
++public class PedidoService {
++
++    private final PedidoDAO pedidoDAO = new PedidoDAO();
++
++    public Pedido conseguirPedidoHoy(String alumnoMac){
++        if(alumnoMac == null){
++            throw new IllegalArgumentException("El alumno no puede ser nulo");
++        }
++        return pedidoDAO.pedidoHoy(alumnoMac);
++    }
++
++    public void save(Pedido pedido){
++        if(pedido.getFecha() == null || pedido.getAlumnoMac() == null|| pedido.getBocadillo() == null){
++            throw new IllegalArgumentException("El alumno no puede ser nulo");
++        }
++        pedidoDAO.save(pedido);
++    }
++}
+Index: src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.mibocatajavafx.dao;\n\nimport org.example.mibocatajavafx.models.Alumnos;\nimport org.example.mibocatajavafx.utils.HibernateUtil;\nimport org.hibernate.Session;\nimport org.hibernate.Transaction;\nimport javax.naming.Referenceable.*;\n\nimport java.util.List;\n\npublic class AlumnoDAO {\n\n    public void guardarAlumno(Alumnos alumno) {\n        Transaction transaction = null;\n        try (Session session = HibernateUtil.getSessionFactory().openSession()) {\n            transaction = session.beginTransaction();\n            session.persist(alumno);\n            transaction.commit();\n        } catch (Exception e) {\n            if (transaction != null) {\n                transaction.rollback();\n            }\n            e.printStackTrace();\n        }\n    }\n\n    public void actualizarAlumno(Alumnos alumno) {\n        Transaction transaction = null;\n        try (Session session = HibernateUtil.getSessionFactory().openSession()) {\n            transaction = session.beginTransaction();\n            session.merge(alumno);\n            transaction.commit();\n        } catch (Exception e) {\n            if (transaction != null) {\n                transaction.rollback();\n            }\n            e.printStackTrace();\n        }\n    }\n\n    public void borrarAlumno(Long id) {\n        Transaction transaction = null;\n        try (Session session = HibernateUtil.getSessionFactory().openSession()) {\n            transaction = session.beginTransaction();\n            Alumnos alumno = session.get(Alumnos.class, id);\n            if (alumno != null) {\n                session.remove(alumno);\n            }\n            transaction.commit();\n        } catch (Exception e) {\n            if (transaction != null) {\n                transaction.rollback();\n            }\n            e.printStackTrace();\n        }\n    }\n\n    public List<Alumnos> listarAlumnos() {\n        try (Session session = HibernateUtil.getSessionFactory().openSession()) {\n            return session.createQuery(\"from Alumnos\", Alumnos.class).list();\n        }\n    }\n\n    public Alumnos buscarAlumno(Long id) {\n        try (Session session = HibernateUtil.getSessionFactory().openSession()) {\n            return session.get(Alumnos.class, id);\n        }\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java b/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java
+--- a/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java	
++++ b/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java	
+@@ -1,9 +1,13 @@
+ package org.example.mibocatajavafx.dao;
+ 
++import jakarta.persistence.NoResultException;
+ import org.example.mibocatajavafx.models.Alumnos;
++import org.example.mibocatajavafx.models.Usuario;
+ import org.example.mibocatajavafx.utils.HibernateUtil;
+ import org.hibernate.Session;
+ import org.hibernate.Transaction;
++import org.hibernate.query.Query;
++
+ import javax.naming.Referenceable.*;
+ 
+ import java.util.List;
+@@ -67,4 +71,29 @@
+         }
+     }
+ 
++    public String conseguirAlumno(String correo) {
++        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
++            Query query = session.createQuery("from Alumnos where correo = :correo");
++            query.setParameter("correo", correo);
++
++            Alumnos alumnos = (Alumnos) query.uniqueResult();
++
++            return alumnos.getNombre();
++        } catch (Exception e) {
++            return null;
++        }
++    }
++
++    public Alumnos conseguirAlumnoNombre(String nombre) {
++        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
++            Query query = session.createQuery("from Alumnos a where a.nombre = :nombre");
++            query.setParameter("nombre", nombre);
++
++            return (Alumnos) query.getSingleResult();
++        } catch (NoResultException e){
++            System.out.println("No se encontro el alumno");
++            return null;
++        }
++    }
++
+ }
+Index: src/main/java/org/example/mibocatajavafx/dao/PedidoDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/mibocatajavafx/dao/PedidoDAO.java b/src/main/java/org/example/mibocatajavafx/dao/PedidoDAO.java
+new file mode 100644
+--- /dev/null	
++++ b/src/main/java/org/example/mibocatajavafx/dao/PedidoDAO.java	
+@@ -0,0 +1,55 @@
++package org.example.mibocatajavafx.dao;
++
++import jakarta.persistence.NoResultException;
++import org.example.mibocatajavafx.models.Alumnos;
++import org.example.mibocatajavafx.models.Pedido;
++import org.example.mibocatajavafx.utils.HibernateUtil;
++import org.hibernate.HibernateException;
++import org.hibernate.Session;
++import org.hibernate.Transaction;
++import org.hibernate.query.Query;
++
++import java.time.LocalDate;
++
++public class PedidoDAO {
++    public Pedido pedidoHoy(String alumnoMac) {
++        LocalDate diaHoy = LocalDate.now();
++        try (Session session = HibernateUtil.getSessionFactory().openSession()){
++            Query query = session.createQuery("from Pedido p where p.alumnoMac = :alumnoMac and p.fecha = :fecha");
++            query.setParameter("alumnoMac", alumnoMac);
++            query.setParameter("fecha", diaHoy);
++
++            if (query.getSingleResult() != null) {
++                return (Pedido) query.getSingleResult();
++            }
++        } catch (NoResultException e) {
++            System.out.println("No se encontro el pedido");
++        }
++        return null;
++    }
++
++    public void save(Pedido pedido) {
++        Transaction tx = null;
++        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
++            tx = session.beginTransaction();
++
++            if (pedido.getId() == null) {
++                session.persist(pedido);
++                session.flush(); //Forzar sincronización con la BD para obtener el ID
++            } else {
++                session.merge(pedido);
++            }
++
++            tx.commit();
++
++            System.out.println("Pedido guardado con ID: " + pedido.getId());
++        } catch (HibernateException e) {
++            if (tx != null) {
++                tx.rollback();
++            }
++            e.printStackTrace();
++            System.out.println("Error al guardar el pedido");
++        }
++    }
++
++}
+Index: src/main/java/org/example/mibocatajavafx/dao/BocataDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/mibocatajavafx/dao/BocataDAO.java b/src/main/java/org/example/mibocatajavafx/dao/BocataDAO.java
+new file mode 100644
+--- /dev/null	
++++ b/src/main/java/org/example/mibocatajavafx/dao/BocataDAO.java	
+@@ -0,0 +1,19 @@
++package org.example.mibocatajavafx.dao;
++
++import org.example.mibocatajavafx.models.Bocadillo;
++import org.example.mibocatajavafx.utils.HibernateUtil;
++import org.hibernate.Session;
++import org.hibernate.query.Query;
++
++public class BocataDAO {
++    public Bocadillo getBocadilloNombre(String nombre) {
++        try (Session session = HibernateUtil.getSessionFactory().openSession()){
++            Query query = session.createQuery("from Bocadillo where nombre = :nombre");
++            query.setParameter("nombre", nombre);
++            return (Bocadillo) query.getSingleResult();
++        } catch (Exception e) {
++            System.out.println("Error al obtener el nombre de la bocadillo");
++        }
++        return null;
++    }
++}
+Index: src/main/java/org/example/mibocatajavafx/service/BocataService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/mibocatajavafx/service/BocataService.java b/src/main/java/org/example/mibocatajavafx/service/BocataService.java
+new file mode 100644
+--- /dev/null	
++++ b/src/main/java/org/example/mibocatajavafx/service/BocataService.java	
+@@ -0,0 +1,17 @@
++package org.example.mibocatajavafx.service;
++
++import org.example.mibocatajavafx.dao.BocataDAO;
++import org.example.mibocatajavafx.models.Bocadillo;
++
++public class BocataService {
++    private final BocataDAO bocataDAO = new BocataDAO();
++
++    public Bocadillo getBocadilloNombre(String nombre) {
++        if(!nombre.isEmpty() || !nombre.isBlank()) {
++            return bocataDAO.getBocadilloNombre(nombre);
++        }
++        return null;
++    }
++
++
++}
+Index: src/main/java/org/example/mibocatajavafx/models/Bocadillo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/mibocatajavafx/models/Bocadillo.java b/src/main/java/org/example/mibocatajavafx/models/Bocadillo.java
+new file mode 100644
+--- /dev/null	
++++ b/src/main/java/org/example/mibocatajavafx/models/Bocadillo.java	
+@@ -0,0 +1,91 @@
++package org.example.mibocatajavafx.models;
++
++import jakarta.persistence.*;
++import org.example.mibocatajavafx.utils.TipoBocadillo;
++import java.util.Date;
++
++@Entity
++@Table(name = "bocadillo")
++public class Bocadillo {
++
++    @Id
++    @Column(name = "nombre", length = 50)
++    private String nombre;
++
++    @Column(name = "fecha_baja")
++    private Date fechaBaja;
++
++    @Column(name = "ingredientes")
++    private String ingredientes;
++
++    @Column(name = "pvp", nullable = false)
++    private double pvp;
++
++    @Enumerated(EnumType.STRING)
++    @Column(name = "tipo", nullable = false)
++    private TipoBocadillo tipo;
++
++    @Column(name = "dia_venta", length = 9)
++    private String diaVenta;
++
++    public Bocadillo() {
++    }
++
++    public Bocadillo(String nombre, Date fechaBaja, String ingredientes, double pvp, TipoBocadillo tipo, String diaVenta) {
++        this.nombre = nombre;
++        this.fechaBaja = fechaBaja;
++        this.ingredientes = ingredientes;
++        this.pvp = pvp;
++        this.tipo = tipo;
++        this.diaVenta = diaVenta;
++    }
++
++    public String getNombre() {
++        return nombre;
++    }
++
++    public void setNombre(String nombre) {
++        this.nombre = nombre;
++    }
++
++    public Date getFechaBaja() {
++        return fechaBaja;
++    }
++
++    public void setFechaBaja(Date fechaBaja) {
++        this.fechaBaja = fechaBaja;
++    }
++
++    public String getIngredientes() {
++        return ingredientes;
++    }
++
++    public void setIngredientes(String ingredientes) {
++        this.ingredientes = ingredientes;
++    }
++
++    public double getPvp() {
++        return pvp;
++    }
++
++    public void setPvp(double pvp) {
++        this.pvp = pvp;
++    }
++
++    public TipoBocadillo getTipo() {
++        return tipo;
++    }
++
++    public void setTipo(TipoBocadillo tipo) {
++        this.tipo = tipo;
++    }
++
++    public String getDiaVenta() {
++        return diaVenta;
++    }
++
++    public void setDiaVenta(String diaVenta) {
++        this.diaVenta = diaVenta;
++    }
++}
++
+Index: src/main/java/org/example/mibocatajavafx/models/Pedido.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/mibocatajavafx/models/Pedido.java b/src/main/java/org/example/mibocatajavafx/models/Pedido.java
+new file mode 100644
+--- /dev/null	
++++ b/src/main/java/org/example/mibocatajavafx/models/Pedido.java	
+@@ -0,0 +1,102 @@
++package org.example.mibocatajavafx.models;
++
++import jakarta.persistence.*;
++import java.time.LocalDate;
++import java.time.LocalTime;
++
++@Entity
++@Table(name = "Pedidos")
++public class Pedido {
++
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    private Long id;
++
++    @Column(name = "alumno_mac", nullable = false, length = 12)
++    private String alumnoMac;
++
++
++    @ManyToOne
++    @JoinColumn(name = "bocadillo_nombre", referencedColumnName = "nombre")
++    private Bocadillo bocadillo;
++
++    @Column(name = "fecha", nullable = false)
++    private LocalDate fecha;
++
++    @Column(name = "hora", nullable = false)
++    private LocalTime hora;
++
++    @Column(name = "retirado", nullable = false)
++    private boolean retirado;
++
++    public Pedido() {
++    }
++
++    public Pedido(String alumnoMac, Bocadillo bocadillo, LocalDate fecha, LocalTime hora, boolean retirado) {
++        this.alumnoMac = alumnoMac;
++        this.bocadillo = bocadillo;
++        this.fecha = fecha;
++        this.hora = hora;
++        this.retirado = retirado;
++    }
++
++    public Pedido(Long id, String alumnoMac, Bocadillo bocadillo, LocalDate fecha, LocalTime hora, boolean retirado) {
++        this.id = id;
++        this.alumnoMac = alumnoMac;
++        this.bocadillo = bocadillo;
++        this.fecha = fecha;
++        this.hora = hora;
++        this.retirado = retirado;
++    }
++
++
++    public Long getId() {
++        return id;
++    }
++
++    public void setId(Long id) {
++        this.id = id;
++    }
++
++    public String getAlumnoMac() {
++        return alumnoMac;
++    }
++
++    public void setAlumnoMac(String alumnoMac) {
++        this.alumnoMac = alumnoMac;
++    }
++
++
++
++    public Bocadillo getBocadillo() {
++        return bocadillo;
++    }
++
++    public void setBocadillo(Bocadillo bocadillo) {
++        this.bocadillo = bocadillo;
++    }
++
++    public LocalDate getFecha() {
++        return fecha;
++    }
++
++    public void setFecha(LocalDate fecha) {
++        this.fecha = fecha;
++    }
++
++    public LocalTime getHora() {
++        return hora;
++    }
++
++    public void setHora(LocalTime hora) {
++        this.hora = hora;
++    }
++
++    public boolean isRetirado() {
++        return retirado;
++    }
++
++    public void setRetirado(boolean retirado) {
++        this.retirado = retirado;
++    }
++}
+\ No newline at end of file
+Index: src/main/java/org/example/mibocatajavafx/utils/TipoBocadillo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/mibocatajavafx/utils/TipoBocadillo.java b/src/main/java/org/example/mibocatajavafx/utils/TipoBocadillo.java
+new file mode 100644
+--- /dev/null	
++++ b/src/main/java/org/example/mibocatajavafx/utils/TipoBocadillo.java	
+@@ -0,0 +1,5 @@
++package org.example.mibocatajavafx.utils;
++
++public enum TipoBocadillo {
++    frio, caliente
++}
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"e5419838-f940-4003-a73e-59bc29c1b50e\" name=\"Changes\" comment=\"resuelve conflicto\">\n      <change afterPath=\"$PROJECT_DIR$/src/main/resources/screens/adminPage.fxml\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/resources/screens/cocinaPage.fxml\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/resources/screens/seleccionBocata.fxml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/pom.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pom.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/module-info.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/module-info.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/HelloApplication.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/HelloApplication.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/Login.java\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/LoginController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/LoginController.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/UsuarioDAO.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/UsuarioDAO.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/hibernate.cfg.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Alumnos.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Alumnos.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Usuario.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Usuario.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Usuarios.java\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/services/AlumnosService.java\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/screens/loginScreen.fxml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/screens/loginScreen.fxml\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"FxmlFile\" />\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\n      <map>\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\n      </map>\n    </option>\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\"><![CDATA[{\n  \"lastFilter\": {\n    \"state\": \"OPEN\",\n    \"assignee\": \"AlexElMejor54\"\n  }\n}]]></component>\n  <component name=\"GithubPullRequestsUISettings\"><![CDATA[{\n  \"selectedUrlAndAccountId\": {\n    \"url\": \"https://github.com/oscarcongost/mibocata_javafx.git\",\n    \"accountId\": \"5da7bd6d-e91a-4926-be87-03df634b6c4b\"\n  }\n}]]></component>\n  <component name=\"MavenImportPreferences\">\n    <option name=\"generalSettings\">\n      <MavenGeneralSettings>\n        <option name=\"mavenHomeTypeForPersistence\" value=\"WRAPPER\" />\n      </MavenGeneralSettings>\n    </option>\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 6\n}</component>\n  <component name=\"ProjectId\" id=\"2sfmNKVDZ9PQb0UyPlIvKPTWyvj\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"Application.HelloApplication.executor\": \"Run\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"git-widget-placeholder\": \"login\",\n    \"kotlin-language-version-configured\": \"true\",\n    \"last_opened_file_path\": \"/Users/alejandri/IdeaProjects/mibocata_javafx/src/main/resources/assets\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.detected.package.tslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\n    \"nodejs_package_manager_path\": \"npm\",\n    \"vue.rearranger.settings.migration\": \"true\"\n  }\n}]]></component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/src/main/resources/assets\" />\n      <recent name=\"$PROJECT_DIR$/src/main/resources/fonts\" />\n    </key>\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/src/main/resources\" />\n      <recent name=\"$PROJECT_DIR$/src/main/resources/screens\" />\n    </key>\n  </component>\n  <component name=\"RunManager\">\n    <configuration name=\"HelloApplication\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"org.example.mibocatajavafx.HelloApplication\" />\n      <module name=\"mibocata-javaFX\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"org.example.mibocatajavafx.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Application.HelloApplication\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17890.1\" />\n        <option value=\"bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17890.1\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"e5419838-f940-4003-a73e-59bc29c1b50e\" name=\"Changes\" comment=\"\" />\n      <created>1738854962898</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1738854962898</updated>\n      <workItem from=\"1738854963943\" duration=\"1000\" />\n      <workItem from=\"1738855755934\" duration=\"223000\" />\n      <workItem from=\"1738855982178\" duration=\"8000\" />\n      <workItem from=\"1738855992144\" duration=\"4437000\" />\n      <workItem from=\"1738943963658\" duration=\"8957000\" />\n      <workItem from=\"1739203222419\" duration=\"5568000\" />\n      <workItem from=\"1739294958601\" duration=\"1559000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"resuelve conflicto\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1739297068261</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1739297068261</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"2\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"resuelve conflicto\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"resuelve conflicto\" />\n  </component>\n  <component name=\"XDebuggerManager\">\n    <breakpoint-manager>\n      <breakpoints>\n        <line-breakpoint enabled=\"true\" type=\"java-method\">\n          <url>file://$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java</url>\n          <line>11</line>\n          <properties class=\"org.example.mibocatajavafx.service.AlumnoService\" method=\"validarCredenciales\">\n            <option name=\"EMULATED\" value=\"true\" />\n            <option name=\"WATCH_EXIT\" value=\"false\" />\n          </properties>\n          <option name=\"timeStamp\" value=\"19\" />\n        </line-breakpoint>\n      </breakpoints>\n    </breakpoint-manager>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -5,24 +5,26 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="e5419838-f940-4003-a73e-59bc29c1b50e" name="Changes" comment="resuelve conflicto">
+-      <change afterPath="$PROJECT_DIR$/src/main/resources/screens/adminPage.fxml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/resources/screens/cocinaPage.fxml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/resources/screens/seleccionBocata.fxml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/SeleccionBocataController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/BocataDAO.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/PedidoDAO.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Bocadillo.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Pedido.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/BocataService.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/PedidoService.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/utils/TipoBocadillo.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/utils/UsuarioSesion.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/css/login.css" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/HelloApplication.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/Login.java" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/controller/LoginController.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/AlumnoDAO.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/UsuarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/dao/UsuarioDAO.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Alumnos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Alumnos.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Usuario.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/models/Usuarios.java" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/services/AlumnosService.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/screens/adminPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/screens/adminPage.fxml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/screens/cocinaPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/screens/cocinaPage.fxml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/resources/screens/loginScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/screens/loginScreen.fxml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/screens/seleccionBocata.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/screens/seleccionBocata.fxml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -33,6 +35,7 @@
+     <option name="RECENT_TEMPLATES">
+       <list>
+         <option value="FxmlFile" />
++        <option value="CSS File" />
+         <option value="Class" />
+       </list>
+     </option>
+@@ -45,18 +48,18 @@
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+-  "lastFilter": {
+-    "state": "OPEN",
+-    "assignee": "AlexElMejor54"
++  <component name="GitHubPullRequestSearchHistory">{
++  &quot;lastFilter&quot;: {
++    &quot;state&quot;: &quot;OPEN&quot;,
++    &quot;assignee&quot;: &quot;AlexElMejor54&quot;
+   }
+-}]]></component>
+-  <component name="GithubPullRequestsUISettings"><![CDATA[{
+-  "selectedUrlAndAccountId": {
+-    "url": "https://github.com/oscarcongost/mibocata_javafx.git",
+-    "accountId": "5da7bd6d-e91a-4926-be87-03df634b6c4b"
++}</component>
++  <component name="GithubPullRequestsUISettings">{
++  &quot;selectedUrlAndAccountId&quot;: {
++    &quot;url&quot;: &quot;https://github.com/oscarcongost/mibocata_javafx.git&quot;,
++    &quot;accountId&quot;: &quot;5da7bd6d-e91a-4926-be87-03df634b6c4b&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="MavenImportPreferences">
+     <option name="generalSettings">
+       <MavenGeneralSettings>
+@@ -82,6 +85,7 @@
+     "git-widget-placeholder": "login",
+     "kotlin-language-version-configured": "true",
+     "last_opened_file_path": "/Users/alejandri/IdeaProjects/mibocata_javafx/src/main/resources/assets",
++    "list.type.of.created.stylesheet": "CSS",
+     "node.js.detected.package.eslint": "true",
+     "node.js.detected.package.tslint": "true",
+     "node.js.selected.package.eslint": "(autodetect)",
+@@ -143,6 +147,14 @@
+       <workItem from="1738943963658" duration="8957000" />
+       <workItem from="1739203222419" duration="5568000" />
+       <workItem from="1739294958601" duration="1559000" />
++      <workItem from="1739319668843" duration="5633000" />
++      <workItem from="1739372774895" duration="22648000" />
++      <workItem from="1739405642245" duration="284000" />
++      <workItem from="1739455666671" duration="24271000" />
++      <workItem from="1739873303073" duration="45000" />
++      <workItem from="1740063490246" duration="509000" />
++      <workItem from="1740067225144" duration="1204000" />
++      <workItem from="1740135014368" duration="16266000" />
+     </task>
+     <task id="LOCAL-00001" summary="resuelve conflicto">
+       <option name="closed" value="true" />
+@@ -173,19 +185,4 @@
+     <MESSAGE value="resuelve conflicto" />
+     <option name="LAST_COMMIT_MESSAGE" value="resuelve conflicto" />
+   </component>
+-  <component name="XDebuggerManager">
+-    <breakpoint-manager>
+-      <breakpoints>
+-        <line-breakpoint enabled="true" type="java-method">
+-          <url>file://$PROJECT_DIR$/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java</url>
+-          <line>11</line>
+-          <properties class="org.example.mibocatajavafx.service.AlumnoService" method="validarCredenciales">
+-            <option name="EMULATED" value="true" />
+-            <option name="WATCH_EXIT" value="false" />
+-          </properties>
+-          <option name="timeStamp" value="19" />
+-        </line-breakpoint>
+-      </breakpoints>
+-    </breakpoint-manager>
+-  </component>
+ </project>
+\ No newline at end of file
+Index: src/main/resources/hibernate.cfg.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE hibernate-configuration PUBLIC \"-//Hibernate/Hibernate Configuration DTD 3.0//EN\" \"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd\">\n<hibernate-configuration>\n    <session-factory>\n        <property name=\"connection.driver_class\">com.mysql.jdbc.Driver</property>\n        <property name=\"connection.url\">jdbc:mysql://localhost:3306/mibocata</property>\n        <property name=\"connection.username\">root</property>\n        <property name=\"connection.password\"></property>\n        <property name=\"dialect\">org.hibernate.dialect.MariaDBDialect</property>\n        <property name=\"hibernate.show_sql\">true</property>\n\n        <!--<mapping resource=\"ejemplo01/Profesor.hbm.xml\"/>-->\n        <mapping class=\"org.example.mibocatajavafx.models.Alumnos\"/>\n        <mapping class=\"org.example.mibocatajavafx.models.Usuario\"></mapping>\n\n\n\n    </session-factory>\n</hibernate-configuration>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/hibernate.cfg.xml b/src/main/resources/hibernate.cfg.xml
+--- a/src/main/resources/hibernate.cfg.xml	
++++ b/src/main/resources/hibernate.cfg.xml	
+@@ -11,7 +11,10 @@
+ 
+         <!--<mapping resource="ejemplo01/Profesor.hbm.xml"/>-->
+         <mapping class="org.example.mibocatajavafx.models.Alumnos"/>
+-        <mapping class="org.example.mibocatajavafx.models.Usuario"></mapping>
++        <mapping class="org.example.mibocatajavafx.models.Usuario"/>
++        <mapping class="org.example.mibocatajavafx.models.Bocadillo"/>
++        <mapping class="org.example.mibocatajavafx.models.Pedido"/>
++
+ 
+ 
+ 
+Index: src/main/resources/screens/adminPage.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<?import javafx.geometry.Insets?>\n<?import javafx.scene.control.Button?>\n<?import javafx.scene.control.Label?>\n<?import javafx.scene.control.PasswordField?>\n<?import javafx.scene.control.TextField?>\n<?import javafx.scene.image.Image?>\n<?import javafx.scene.image.ImageView?>\n<?import javafx.scene.layout.AnchorPane?>\n<?import javafx.scene.layout.BorderPane?>\n<?import javafx.scene.layout.HBox?>\n<?import javafx.scene.layout.StackPane?>\n<?import javafx.scene.layout.VBox?>\n<?import javafx.scene.shape.Line?>\n<?import javafx.scene.text.Font?>\n<?import javafx.scene.text.Text?>\n\n<StackPane maxHeight=\"-Infinity\" maxWidth=\"-Infinity\" minHeight=\"-Infinity\" minWidth=\"-Infinity\" prefHeight=\"1080.0\" prefWidth=\"1920.0\" xmlns=\"http://javafx.com/javafx/23.0.1\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"org.example.mibocatajavafx.controller.LoginController\">\n    <children>\n        <BorderPane prefHeight=\"200.0\" prefWidth=\"200.0\">\n            <top>\n                <AnchorPane prefHeight=\"134.0\" prefWidth=\"1916.0\" style=\"-fx-background-color: #1d1d1b;\" BorderPane.alignment=\"CENTER\">\n                    <children>\n                        <ImageView fitHeight=\"120.0\" fitWidth=\"150.0\" pickOnBounds=\"true\" preserveRatio=\"true\" x=\"100.0\" y=\"5.0\">\n                            <image>\n                                <Image url=\"@../assets/img.png\" />\n                            </image>\n                        </ImageView>\n                    </children>\n                </AnchorPane>\n            </top>\n        </BorderPane>\n        <VBox alignment=\"CENTER\" prefHeight=\"200.0\" prefWidth=\"100.0\" spacing=\"100.0\">\n            <children>\n                <Text strokeType=\"OUTSIDE\" strokeWidth=\"2.0\" style=\"-fx-fill: #3A3A3A; -fx-stroke-width: 2.0;\" text=\"ADMIN\" textAlignment=\"CENTER\">\n                    <font>\n                        <Font name=\"System Bold\" size=\"50.0\" />\n                    </font>\n                    <VBox.margin>\n                        <Insets top=\"20.0\" />\n                    </VBox.margin>\n                </Text>\n\n                <VBox prefHeight=\"589.0\" prefWidth=\"408.0\" style=\"-fx-background-radius: 30px; -fx-border-radius: 30px; -fx-opacity: 1;\">\n                    <VBox.margin>\n                        <Insets />\n                    </VBox.margin>\n                    <children>\n                        <!-- Correo Electrónico -->\n                        <Text style=\"-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;\" text=\"CORREO ELECTRÓNICO\" wrappingWidth=\"517.8614501953125\">\n                            <VBox.margin>\n                                <Insets left=\"50.0\" />\n                            </VBox.margin></Text>\n                        <TextField fx:id=\"emailField\" maxWidth=\"407.0\" prefHeight=\"43.0\" prefWidth=\"407.0\" promptText=\"Introduce tu correo\" style=\"-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                           -fx-padding: 10px; -fx-font-size: 14px;\">\n                            <VBox.margin>\n                                <Insets left=\"50.0\" top=\"10.0\" />\n                            </VBox.margin></TextField>\n\n                        <!-- Contraseña -->\n                        <Text style=\"-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;\" text=\"CONTRASEÑA\" wrappingWidth=\"465.5390625\">\n                            <VBox.margin>\n                                <Insets left=\"50.0\" top=\"25.0\" />\n                            </VBox.margin></Text>\n                        <PasswordField fx:id=\"passwordField\" maxWidth=\"407.0\" minWidth=\"400.0\" prefHeight=\"43.0\" prefWidth=\"407.0\" promptText=\"Introduce tu contraseña\" style=\"-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                               -fx-padding: 10px; -fx-font-size: 14px;\">\n                            <VBox.margin>\n                                <Insets left=\"50.0\" top=\"10.0\" />\n                            </VBox.margin></PasswordField>\n\n                        <!-- Botón Continuar -->\n                        <Button alignment=\"CENTER\" contentDisplay=\"CENTER\" minWidth=\"200.0\" onAction=\"#handleLogin\" prefHeight=\"40.0\" prefWidth=\"407.0\" style=\"-fx-background-color: #1D1D1B; -fx-text-fill: white;                                                           -fx-font-size: 16px; -fx-font-weight: bold;                                                           -fx-background-radius: 10px; -fx-padding: 10px;\" text=\"Continuar\" textAlignment=\"CENTER\">\n                            <VBox.margin>\n                                <Insets left=\"50.0\" top=\"50.0\" />\n                            </VBox.margin></Button>\n                        <HBox prefHeight=\"42.0\" prefWidth=\"547.0\">\n                            <children>\n                                <Line endX=\"33.29289245605469\" endY=\"-0.10749739408493042\" startX=\"-100.0\">\n                                    <HBox.margin>\n                                        <Insets left=\"50.0\" top=\"15.0\" />\n                                    </HBox.margin>\n                                </Line>\n                                <Text strokeType=\"OUTSIDE\" strokeWidth=\"0.0\" text=\"Accede con\" wrappingWidth=\"96.59869384765625\">\n                                    <HBox.margin>\n                                        <Insets left=\"25.0\" top=\"5.0\" />\n                                    </HBox.margin>\n                                    <font>\n                                        <Font name=\"System Bold\" size=\"18.0\" />\n                                    </font>\n                                </Text>\n                                <Line endX=\"47.66117858886719\" endY=\"-7.241964340209961E-5\" startX=\"180.89266967773438\" startY=\"3.4034252166748047E-4\">\n                                    <HBox.margin>\n                                        <Insets left=\"15.0\" top=\"15.0\" />\n                                    </HBox.margin>\n                                </Line>\n                            </children>\n                            <VBox.margin>\n                                <Insets top=\"15.0\" />\n                            </VBox.margin>\n                        </HBox>\n                        <HBox maxWidth=\"407.0\" prefHeight=\"40.0\" prefWidth=\"423.0\" style=\"-fx-background-color: #eeeeee; -fx-border-radius: 10px; -fx-border-color: #9B9B9B;\">\n                            <children>\n                                <ImageView fitHeight=\"28.0\" fitWidth=\"29.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\n                                    <HBox.margin>\n                                        <Insets left=\"40.0\" top=\"5.0\" />\n                                    </HBox.margin>\n                                    <image>\n                                        <Image url=\"@../assets/imgicons8com.png\" />\n                                    </image>\n                                </ImageView>\n                                <Label prefHeight=\"22.0\" prefWidth=\"155.0\" text=\"Accede con Google\">\n                                    <HBox.margin>\n                                        <Insets left=\"70.0\" top=\"8.0\" />\n                                    </HBox.margin>\n                                    <font>\n                                        <Font name=\"System Bold\" size=\"17.0\" />\n                                    </font>\n                                </Label>\n                            </children>\n                            <VBox.margin>\n                                <Insets left=\"50.0\" />\n                            </VBox.margin>\n                        </HBox>\n                    </children>\n                </VBox>\n            </children>\n            <padding>\n                <Insets left=\"700.0\" right=\"700.0\" top=\"150.0\" />\n            </padding>\n        </VBox>\n    </children>\n</StackPane>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/screens/adminPage.fxml b/src/main/resources/screens/adminPage.fxml
+--- a/src/main/resources/screens/adminPage.fxml	
++++ b/src/main/resources/screens/adminPage.fxml	
+@@ -1,131 +1,28 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ 
+-<?import javafx.geometry.Insets?>
+-<?import javafx.scene.control.Button?>
+ <?import javafx.scene.control.Label?>
+-<?import javafx.scene.control.PasswordField?>
+-<?import javafx.scene.control.TextField?>
+ <?import javafx.scene.image.Image?>
+ <?import javafx.scene.image.ImageView?>
+ <?import javafx.scene.layout.AnchorPane?>
+ <?import javafx.scene.layout.BorderPane?>
+-<?import javafx.scene.layout.HBox?>
+ <?import javafx.scene.layout.StackPane?>
+-<?import javafx.scene.layout.VBox?>
+-<?import javafx.scene.shape.Line?>
+-<?import javafx.scene.text.Font?>
+-<?import javafx.scene.text.Text?>
+ 
+-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mibocatajavafx.controller.LoginController">
+-    <children>
+-        <BorderPane prefHeight="200.0" prefWidth="200.0">
+-            <top>
+-                <AnchorPane prefHeight="134.0" prefWidth="1916.0" style="-fx-background-color: #1d1d1b;" BorderPane.alignment="CENTER">
+-                    <children>
+-                        <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" x="100.0" y="5.0">
+-                            <image>
+-                                <Image url="@../assets/img.png" />
+-                            </image>
+-                        </ImageView>
++
++<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
++    <top>
++        <AnchorPane prefHeight="134.0" prefWidth="1916.0" style="-fx-background-color: #1d1d1b;" BorderPane.alignment="CENTER">
++            <children>
++                <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="5.0">
++                    <image>
++                        <Image url="@../assets/img.png" />
++                    </image>
++                </ImageView>
++                <StackPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
++                    <children>
++                        <Label style="-fx-text-fill: white; -fx-font-size: 40px; -fx-font-weight: bold; -fx-font-family: 'System';" text="PANEL ADMINISTRADOR" />
+                     </children>
+-                </AnchorPane>
+-            </top>
+-        </BorderPane>
+-        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="100.0">
+-            <children>
+-                <Text strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-fill: #3A3A3A; -fx-stroke-width: 2.0;" text="ADMIN" textAlignment="CENTER">
+-                    <font>
+-                        <Font name="System Bold" size="50.0" />
+-                    </font>
+-                    <VBox.margin>
+-                        <Insets top="20.0" />
+-                    </VBox.margin>
+-                </Text>
+-
+-                <VBox prefHeight="589.0" prefWidth="408.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px; -fx-opacity: 1;">
+-                    <VBox.margin>
+-                        <Insets />
+-                    </VBox.margin>
+-                    <children>
+-                        <!-- Correo Electrónico -->
+-                        <Text style="-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;" text="CORREO ELECTRÓNICO" wrappingWidth="517.8614501953125">
+-                            <VBox.margin>
+-                                <Insets left="50.0" />
+-                            </VBox.margin></Text>
+-                        <TextField fx:id="emailField" maxWidth="407.0" prefHeight="43.0" prefWidth="407.0" promptText="Introduce tu correo" style="-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                           -fx-padding: 10px; -fx-font-size: 14px;">
+-                            <VBox.margin>
+-                                <Insets left="50.0" top="10.0" />
+-                            </VBox.margin></TextField>
+-
+-                        <!-- Contraseña -->
+-                        <Text style="-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;" text="CONTRASEÑA" wrappingWidth="465.5390625">
+-                            <VBox.margin>
+-                                <Insets left="50.0" top="25.0" />
+-                            </VBox.margin></Text>
+-                        <PasswordField fx:id="passwordField" maxWidth="407.0" minWidth="400.0" prefHeight="43.0" prefWidth="407.0" promptText="Introduce tu contraseña" style="-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                               -fx-padding: 10px; -fx-font-size: 14px;">
+-                            <VBox.margin>
+-                                <Insets left="50.0" top="10.0" />
+-                            </VBox.margin></PasswordField>
+-
+-                        <!-- Botón Continuar -->
+-                        <Button alignment="CENTER" contentDisplay="CENTER" minWidth="200.0" onAction="#handleLogin" prefHeight="40.0" prefWidth="407.0" style="-fx-background-color: #1D1D1B; -fx-text-fill: white;                                                           -fx-font-size: 16px; -fx-font-weight: bold;                                                           -fx-background-radius: 10px; -fx-padding: 10px;" text="Continuar" textAlignment="CENTER">
+-                            <VBox.margin>
+-                                <Insets left="50.0" top="50.0" />
+-                            </VBox.margin></Button>
+-                        <HBox prefHeight="42.0" prefWidth="547.0">
+-                            <children>
+-                                <Line endX="33.29289245605469" endY="-0.10749739408493042" startX="-100.0">
+-                                    <HBox.margin>
+-                                        <Insets left="50.0" top="15.0" />
+-                                    </HBox.margin>
+-                                </Line>
+-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Accede con" wrappingWidth="96.59869384765625">
+-                                    <HBox.margin>
+-                                        <Insets left="25.0" top="5.0" />
+-                                    </HBox.margin>
+-                                    <font>
+-                                        <Font name="System Bold" size="18.0" />
+-                                    </font>
+-                                </Text>
+-                                <Line endX="47.66117858886719" endY="-7.241964340209961E-5" startX="180.89266967773438" startY="3.4034252166748047E-4">
+-                                    <HBox.margin>
+-                                        <Insets left="15.0" top="15.0" />
+-                                    </HBox.margin>
+-                                </Line>
+-                            </children>
+-                            <VBox.margin>
+-                                <Insets top="15.0" />
+-                            </VBox.margin>
+-                        </HBox>
+-                        <HBox maxWidth="407.0" prefHeight="40.0" prefWidth="423.0" style="-fx-background-color: #eeeeee; -fx-border-radius: 10px; -fx-border-color: #9B9B9B;">
+-                            <children>
+-                                <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+-                                    <HBox.margin>
+-                                        <Insets left="40.0" top="5.0" />
+-                                    </HBox.margin>
+-                                    <image>
+-                                        <Image url="@../assets/imgicons8com.png" />
+-                                    </image>
+-                                </ImageView>
+-                                <Label prefHeight="22.0" prefWidth="155.0" text="Accede con Google">
+-                                    <HBox.margin>
+-                                        <Insets left="70.0" top="8.0" />
+-                                    </HBox.margin>
+-                                    <font>
+-                                        <Font name="System Bold" size="17.0" />
+-                                    </font>
+-                                </Label>
+-                            </children>
+-                            <VBox.margin>
+-                                <Insets left="50.0" />
+-                            </VBox.margin>
+-                        </HBox>
+-                    </children>
+-                </VBox>
+-            </children>
+-            <padding>
+-                <Insets left="700.0" right="700.0" top="150.0" />
+-            </padding>
+-        </VBox>
+-    </children>
+-</StackPane>
++                </StackPane>
++            </children>
++        </AnchorPane>
++    </top>
++</BorderPane>
+Index: src/main/java/org/example/mibocatajavafx/controller/SeleccionBocataController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/mibocatajavafx/controller/SeleccionBocataController.java b/src/main/java/org/example/mibocatajavafx/controller/SeleccionBocataController.java
+new file mode 100644
+--- /dev/null	
++++ b/src/main/java/org/example/mibocatajavafx/controller/SeleccionBocataController.java	
+@@ -0,0 +1,221 @@
++package org.example.mibocatajavafx.controller;
++
++import jakarta.persistence.NoResultException;
++import javafx.fxml.FXML;
++import javafx.fxml.FXMLLoader;
++import javafx.scene.Parent;
++import javafx.scene.Scene;
++import javafx.scene.control.Alert;
++import javafx.scene.control.Button;
++import javafx.scene.control.Label;
++import javafx.scene.layout.VBox;
++import javafx.stage.Stage;
++import org.example.mibocatajavafx.models.Alumnos;
++import org.example.mibocatajavafx.models.Bocadillo;
++import org.example.mibocatajavafx.models.Pedido;
++import org.example.mibocatajavafx.service.AlumnoService;
++import org.example.mibocatajavafx.service.BocataService;
++import org.example.mibocatajavafx.service.PedidoService;
++import org.example.mibocatajavafx.utils.HibernateUtil;
++import org.hibernate.Session;
++import org.hibernate.query.Query;
++import java.io.IOException;
++import java.time.LocalDate;
++import java.time.LocalTime;
++import java.time.format.TextStyle;
++import java.util.List;
++import java.util.Locale;
++
++public class SeleccionBocataController {
++
++    private final BocataService bocataService = new BocataService();
++    private final AlumnoService alumnoService = new AlumnoService();
++    private final PedidoService pedidoService = new PedidoService();
++    private String nombreUsuario;
++    private Pedido pedidoActual;
++    private Pedido pedidoExistente;
++
++    @FXML
++    private Label nombreLabel;
++
++    @FXML
++    private Label nombreFrio, nombreCaliente;
++
++    @FXML
++    private Label ingredientesFrio, ingredientesCaliente;
++
++    @FXML
++    private Label precioFrio, precioCaliente;
++
++    @FXML
++    private Button btnCerrarSesion;
++
++    @FXML
++    private VBox vboxFrio, vboxCaliente;
++
++    @FXML
++    private Label bocadilloSeleccionadoLabel;
++
++    @FXML
++    private Label precioSeleccionadoLabel;
++
++    @FXML
++    private Button btnConfirmar;
++
++
++    @FXML
++    public void initialize() {
++        if (nombreUsuario != null) {
++            nombreLabel.setText(nombreUsuario);
++        }
++        cargarBocadillosDeHoy();
++
++        vboxFrio.setOnMouseClicked(mouseEvent ->seleccionarBocadillo("frio"));
++        vboxCaliente.setOnMouseClicked(mouseEvent ->seleccionarBocadillo("caliente"));
++
++        btnConfirmar.setOnMouseClicked(mouseEvent -> realizarPedido());
++    }
++
++    private void seleccionarBocadillo(String tipo) {
++        String nombreBocadillo = tipo.equals("frio") ? nombreFrio.getText() : nombreCaliente.getText();
++        Bocadillo bocadillo = bocataService.getBocadilloNombre(nombreBocadillo);
++        double precio = bocadillo.getPvp();
++        Alumnos alumno = alumnoService.conseguirAlumnoNombre(nombreUsuario);
++
++        pedidoExistente = pedidoService.conseguirPedidoHoy(alumno.getMac());
++
++        if (pedidoExistente != null) {
++            if (pedidoExistente.getBocadillo().getTipo() == bocadillo.getTipo()){
++                bocadilloSeleccionadoLabel.setText(nombreBocadillo + " | " +precio + " €");
++                pedidoActual = pedidoExistente;
++                return;
++            } else {
++                Pedido pedidoNuevo = new Pedido(
++                        pedidoExistente.getId(),
++                        pedidoExistente.getAlumnoMac(),
++                        bocadillo,
++                        LocalDate.now(),
++                        LocalTime.now(),
++                        false
++                );
++
++                pedidoActual = pedidoNuevo;
++            }
++
++        } else {
++            pedidoActual = new Pedido(alumno.getMac(), bocadillo,LocalDate.now(),LocalTime.now(),false);
++        }
++        bocadilloSeleccionadoLabel.setText(nombreBocadillo + " | "+ precio+" €");
++    }
++
++
++
++    public void setNombreUsuario(String nombreUsuario) {
++        this.nombreUsuario = nombreUsuario;
++        if (nombreLabel != null) {
++            nombreLabel.setText(nombreUsuario);
++        }
++    }
++
++    public List<Bocadillo> obtenerBocadillosDeHoy() {
++        String diaHoy = LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
++
++        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
++            Query<Bocadillo> query = session.createQuery("from Bocadillo b where b.diaVenta = :nombreHoy", Bocadillo.class);
++            query.setParameter("nombreHoy", diaHoy);
++
++            return query.getResultList();
++        } catch (NoResultException e) {
++            System.out.println("No se encontraron bocadillos para hoy.");
++            return List.of();
++        }
++    }
++
++    public void cargarBocadillosDeHoy() {
++        List<Bocadillo> bocadillos = obtenerBocadillosDeHoy();
++
++        Bocadillo bocadilloFrio = null;
++        Bocadillo bocadilloCaliente = null;
++
++        for (Bocadillo b : bocadillos) {
++            if (b.getTipo().name().equalsIgnoreCase("FRIO") && bocadilloFrio == null) {
++                bocadilloFrio = b;
++            } else if (b.getTipo().name().equalsIgnoreCase("CALIENTE") && bocadilloCaliente == null) {
++                bocadilloCaliente = b;
++            }
++        }
++
++        if (bocadilloFrio != null) {
++            nombreFrio.setText(bocadilloFrio.getNombre());
++            ingredientesFrio.setText(bocadilloFrio.getIngredientes());
++            precioFrio.setText(String.format("%.2f €", bocadilloFrio.getPvp()));
++        } else {
++            nombreFrio.setText("No disponible");
++            ingredientesFrio.setText("-");
++            precioFrio.setText("-");
++        }
++
++        if (bocadilloCaliente != null) {
++            nombreCaliente.setText(bocadilloCaliente.getNombre());
++            ingredientesCaliente.setText(bocadilloCaliente.getIngredientes());
++            precioCaliente.setText(String.format("%.2f €", bocadilloCaliente.getPvp()));
++        } else {
++            nombreCaliente.setText("No disponible");
++            ingredientesCaliente.setText("-");
++            precioCaliente.setText("-");
++        }
++    }
++
++    @FXML
++    private void cerrarSesion() {
++        try {
++            // Cargar la pantalla de login
++            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/loginScreen.fxml"));
++            Parent root = loader.load();
++
++            // Crear una nueva ventana para la pantalla de login
++            Stage loginStage = new Stage();
++            loginStage.setScene(new Scene(root, 1920, 1080));
++            loginStage.setTitle("Iniciar Sesión");
++            loginStage.setResizable(false); // Evita que se redimensione
++            loginStage.show();
++
++            // Cerrar la ventana actual (SeleccionBocata)
++            Stage currentStage = (Stage) btnCerrarSesion.getScene().getWindow();
++            currentStage.close();
++        } catch (IOException e) {
++            e.printStackTrace();
++        }
++    }
++
++    private void realizarPedido() {
++        if (pedidoActual == null) {
++            mostrarAlerta("Error", "No hay bocadillo seleccionado.", Alert.AlertType.WARNING);
++            return;
++        }
++
++        // Verificar si ya hay un pedido existente y si tiene un bocadillo asociado
++        if (pedidoExistente != null && pedidoExistente.getBocadillo() != null) {
++            if (pedidoActual.getBocadillo().getNombre().equals(pedidoExistente.getBocadillo().getNombre())) {
++                mostrarAlerta("Pedido ya existente", "Ya tienes este bocata seleccionado.", Alert.AlertType.WARNING);
++                return;
++            }
++        }
++
++        // Guardar el nuevo pedido
++        pedidoService.save(pedidoActual);
++        mostrarAlerta("Pedido creado", "Tu pedido ha sido registrado con éxito.", Alert.AlertType.CONFIRMATION);
++        System.out.println("Pedido creado con ID: " + pedidoActual.getId());
++    }
++
++
++    private void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {
++        Alert alert = new Alert(tipo);
++        alert.setTitle(titulo);
++        alert.setContentText(contenido);
++        alert.showAndWait();
++    }
++
++
++
++}
+Index: src/main/java/org/example/mibocatajavafx/service/AlumnoService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.mibocatajavafx.service;\n\nimport org.example.mibocatajavafx.models.Usuario;\nimport org.example.mibocatajavafx.models.Alumnos;\nimport org.example.mibocatajavafx.utils.HibernateUtil;\nimport org.hibernate.Session;\nimport org.hibernate.query.Query;\n\npublic class AlumnoService {\n    private String rolUsuario; // Variable para guardar el rol del usuario\n\n    public boolean validarCredenciales(String correoUsuario, String contrasena) {\n        try (Session session = HibernateUtil.getSessionFactory().openSession()) {\n            // Buscar en la tabla Usuario\n            Query<Usuario> queryUsuario = session.createQuery(\n                    \"FROM Usuario WHERE email = :email AND contrasena = :contrasena\", Usuario.class);\n            queryUsuario.setParameter(\"email\", correoUsuario);\n            queryUsuario.setParameter(\"contrasena\", contrasena);\n\n            Usuario usuario = queryUsuario.uniqueResult();\n            if (usuario != null) {\n                rolUsuario = usuario.getRol().toLowerCase();\n                if (rolUsuario.equals(\"admin\") || rolUsuario.equals(\"cocina\")) {\n                    System.out.println(\"Bienvenido, \" + rolUsuario);\n                    return true; // Usuario válido\n                }\n            }\n\n            // Si no es admin ni cocina, buscar en Alumno\n            Query<Alumnos> queryAlumno = session.createQuery(\n                    \"FROM Alumnos WHERE correo = :correo AND pass = :pass\", Alumnos.class);\n            queryAlumno.setParameter(\"correo\", correoUsuario);\n            queryAlumno.setParameter(\"pass\", contrasena);\n\n            System.out.println(queryAlumno.uniqueResult());\n\n            Alumnos alumno = queryAlumno.uniqueResult();\n            if (alumno != null) {\n                rolUsuario = \"alumno\";\n                System.out.println(\"Bienvenido, Alumno.\");\n                return true; // Alumno válido\n            }\n\n            // Si no es usuario ni alumno, credenciales incorrectas\n            System.out.println(\"Usuario no encontrado. Verifique sus credenciales.\");\n            return false;\n        } catch (Exception e) {\n            e.printStackTrace();\n            return false; // En caso de error en la base de datos\n        }\n    }\n\n    public String getRolUsuario() {\n        return rolUsuario;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java b/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java
+--- a/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java	
++++ b/src/main/java/org/example/mibocatajavafx/service/AlumnoService.java	
+@@ -1,5 +1,6 @@
+ package org.example.mibocatajavafx.service;
+ 
++import org.example.mibocatajavafx.dao.AlumnoDAO;
+ import org.example.mibocatajavafx.models.Usuario;
+ import org.example.mibocatajavafx.models.Alumnos;
+ import org.example.mibocatajavafx.utils.HibernateUtil;
+@@ -8,6 +9,7 @@
+ 
+ public class AlumnoService {
+     private String rolUsuario; // Variable para guardar el rol del usuario
++    private AlumnoDAO alumnoDAO = new AlumnoDAO();
+ 
+     public boolean validarCredenciales(String correoUsuario, String contrasena) {
+         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+@@ -50,7 +52,24 @@
+         }
+     }
+ 
++    public String conseguirAlumno(String correoAlumno) {
++        if (correoAlumno.isBlank() || correoAlumno.isEmpty()) {
++            throw new IllegalArgumentException("El campo 'correo' es obligatorio");
++        }
++
++        return alumnoDAO.conseguirAlumno(correoAlumno);
++    }
++
+     public String getRolUsuario() {
+         return rolUsuario;
+     }
++
++
++    public Alumnos conseguirAlumnoNombre(String nombreAlumno) {
++        if (nombreAlumno.isBlank() || nombreAlumno.isEmpty()) {
++            throw new IllegalArgumentException("El campo 'correo' es obligatorio");
++        }
++
++        return alumnoDAO.conseguirAlumnoNombre(nombreAlumno);
++    }
+ }
+Index: src/main/resources/screens/cocinaPage.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<?import javafx.geometry.Insets?>\n<?import javafx.scene.control.Button?>\n<?import javafx.scene.control.Label?>\n<?import javafx.scene.control.PasswordField?>\n<?import javafx.scene.control.TextField?>\n<?import javafx.scene.image.Image?>\n<?import javafx.scene.image.ImageView?>\n<?import javafx.scene.layout.AnchorPane?>\n<?import javafx.scene.layout.BorderPane?>\n<?import javafx.scene.layout.HBox?>\n<?import javafx.scene.layout.StackPane?>\n<?import javafx.scene.layout.VBox?>\n<?import javafx.scene.shape.Line?>\n<?import javafx.scene.text.Font?>\n<?import javafx.scene.text.Text?>\n\n<StackPane maxHeight=\"-Infinity\" maxWidth=\"-Infinity\" minHeight=\"-Infinity\" minWidth=\"-Infinity\" prefHeight=\"1080.0\" prefWidth=\"1920.0\" xmlns=\"http://javafx.com/javafx/23.0.1\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"org.example.mibocatajavafx.controller.LoginController\">\n    <children>\n        <BorderPane prefHeight=\"200.0\" prefWidth=\"200.0\">\n            <top>\n                <AnchorPane prefHeight=\"134.0\" prefWidth=\"1916.0\" style=\"-fx-background-color: #1d1d1b;\" BorderPane.alignment=\"CENTER\">\n                    <children>\n                        <ImageView fitHeight=\"120.0\" fitWidth=\"150.0\" pickOnBounds=\"true\" preserveRatio=\"true\" x=\"100.0\" y=\"5.0\">\n                            <image>\n                                <Image url=\"@../assets/img.png\" />\n                            </image>\n                        </ImageView>\n                    </children>\n                </AnchorPane>\n            </top>\n        </BorderPane>\n        <VBox alignment=\"CENTER\" prefHeight=\"200.0\" prefWidth=\"100.0\" spacing=\"100.0\">\n            <children>\n                <Text strokeType=\"OUTSIDE\" strokeWidth=\"2.0\" style=\"-fx-fill: #3A3A3A; -fx-stroke-width: 2.0;\" text=\"COCINA\" textAlignment=\"CENTER\">\n                    <font>\n                        <Font name=\"System Bold\" size=\"50.0\" />\n                    </font>\n                    <VBox.margin>\n                        <Insets top=\"20.0\" />\n                    </VBox.margin>\n                </Text>\n\n                <VBox prefHeight=\"589.0\" prefWidth=\"408.0\" style=\"-fx-background-radius: 30px; -fx-border-radius: 30px; -fx-opacity: 1;\">\n                    <VBox.margin>\n                        <Insets />\n                    </VBox.margin>\n                    <children>\n                        <!-- Correo Electrónico -->\n                        <Text style=\"-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;\" text=\"CORREO ELECTRÓNICO\" wrappingWidth=\"517.8614501953125\">\n                            <VBox.margin>\n                                <Insets left=\"50.0\" />\n                            </VBox.margin></Text>\n                        <TextField fx:id=\"emailField\" maxWidth=\"407.0\" prefHeight=\"43.0\" prefWidth=\"407.0\" promptText=\"Introduce tu correo\" style=\"-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                           -fx-padding: 10px; -fx-font-size: 14px;\">\n                            <VBox.margin>\n                                <Insets left=\"50.0\" top=\"10.0\" />\n                            </VBox.margin></TextField>\n\n                        <!-- Contraseña -->\n                        <Text style=\"-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;\" text=\"CONTRASEÑA\" wrappingWidth=\"465.5390625\">\n                            <VBox.margin>\n                                <Insets left=\"50.0\" top=\"25.0\" />\n                            </VBox.margin></Text>\n                        <PasswordField fx:id=\"passwordField\" maxWidth=\"407.0\" minWidth=\"400.0\" prefHeight=\"43.0\" prefWidth=\"407.0\" promptText=\"Introduce tu contraseña\" style=\"-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                               -fx-padding: 10px; -fx-font-size: 14px;\">\n                            <VBox.margin>\n                                <Insets left=\"50.0\" top=\"10.0\" />\n                            </VBox.margin></PasswordField>\n\n                        <!-- Botón Continuar -->\n                        <Button alignment=\"CENTER\" contentDisplay=\"CENTER\" minWidth=\"200.0\" onAction=\"#handleLogin\" prefHeight=\"40.0\" prefWidth=\"407.0\" style=\"-fx-background-color: #1D1D1B; -fx-text-fill: white;                                                           -fx-font-size: 16px; -fx-font-weight: bold;                                                           -fx-background-radius: 10px; -fx-padding: 10px;\" text=\"Continuar\" textAlignment=\"CENTER\">\n                            <VBox.margin>\n                                <Insets left=\"50.0\" top=\"50.0\" />\n                            </VBox.margin></Button>\n                        <HBox prefHeight=\"42.0\" prefWidth=\"547.0\">\n                            <children>\n                                <Line endX=\"33.29289245605469\" endY=\"-0.10749739408493042\" startX=\"-100.0\">\n                                    <HBox.margin>\n                                        <Insets left=\"50.0\" top=\"15.0\" />\n                                    </HBox.margin>\n                                </Line>\n                                <Text strokeType=\"OUTSIDE\" strokeWidth=\"0.0\" text=\"Accede con\" wrappingWidth=\"96.59869384765625\">\n                                    <HBox.margin>\n                                        <Insets left=\"25.0\" top=\"5.0\" />\n                                    </HBox.margin>\n                                    <font>\n                                        <Font name=\"System Bold\" size=\"18.0\" />\n                                    </font>\n                                </Text>\n                                <Line endX=\"47.66117858886719\" endY=\"-7.241964340209961E-5\" startX=\"180.89266967773438\" startY=\"3.4034252166748047E-4\">\n                                    <HBox.margin>\n                                        <Insets left=\"15.0\" top=\"15.0\" />\n                                    </HBox.margin>\n                                </Line>\n                            </children>\n                            <VBox.margin>\n                                <Insets top=\"15.0\" />\n                            </VBox.margin>\n                        </HBox>\n                        <HBox maxWidth=\"407.0\" prefHeight=\"40.0\" prefWidth=\"423.0\" style=\"-fx-background-color: #eeeeee; -fx-border-radius: 10px; -fx-border-color: #9B9B9B;\">\n                            <children>\n                                <ImageView fitHeight=\"28.0\" fitWidth=\"29.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\n                                    <HBox.margin>\n                                        <Insets left=\"40.0\" top=\"5.0\" />\n                                    </HBox.margin>\n                                    <image>\n                                        <Image url=\"@../assets/imgicons8com.png\" />\n                                    </image>\n                                </ImageView>\n                                <Label prefHeight=\"22.0\" prefWidth=\"155.0\" text=\"Accede con Google\">\n                                    <HBox.margin>\n                                        <Insets left=\"70.0\" top=\"8.0\" />\n                                    </HBox.margin>\n                                    <font>\n                                        <Font name=\"System Bold\" size=\"17.0\" />\n                                    </font>\n                                </Label>\n                            </children>\n                            <VBox.margin>\n                                <Insets left=\"50.0\" />\n                            </VBox.margin>\n                        </HBox>\n                    </children>\n                </VBox>\n            </children>\n            <padding>\n                <Insets left=\"700.0\" right=\"700.0\" top=\"150.0\" />\n            </padding>\n        </VBox>\n    </children>\n</StackPane>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/screens/cocinaPage.fxml b/src/main/resources/screens/cocinaPage.fxml
+--- a/src/main/resources/screens/cocinaPage.fxml	
++++ b/src/main/resources/screens/cocinaPage.fxml	
+@@ -1,20 +1,13 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ 
+ <?import javafx.geometry.Insets?>
+-<?import javafx.scene.control.Button?>
+ <?import javafx.scene.control.Label?>
+-<?import javafx.scene.control.PasswordField?>
+-<?import javafx.scene.control.TextField?>
+ <?import javafx.scene.image.Image?>
+ <?import javafx.scene.image.ImageView?>
+ <?import javafx.scene.layout.AnchorPane?>
+ <?import javafx.scene.layout.BorderPane?>
+-<?import javafx.scene.layout.HBox?>
+ <?import javafx.scene.layout.StackPane?>
+ <?import javafx.scene.layout.VBox?>
+-<?import javafx.scene.shape.Line?>
+-<?import javafx.scene.text.Font?>
+-<?import javafx.scene.text.Text?>
+ 
+ <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mibocatajavafx.controller.LoginController">
+     <children>
+@@ -22,110 +15,21 @@
+             <top>
+                 <AnchorPane prefHeight="134.0" prefWidth="1916.0" style="-fx-background-color: #1d1d1b;" BorderPane.alignment="CENTER">
+                     <children>
+-                        <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" x="100.0" y="5.0">
++                        <!-- Logo a la izquierda -->
++                        <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true"
++                                   AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="5.0">
+                             <image>
+                                 <Image url="@../assets/img.png" />
+                             </image>
+                         </ImageView>
++
++                        <!-- Texto "Cocina" centrado usando StackPane -->
++                        <StackPane AnchorPane.topAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
++                            <Label text="PANEL COCINA" style="-fx-text-fill: white; -fx-font-size: 40px; -fx-font-weight: bold; -fx-font-family: 'System';"/>
++                        </StackPane>
+                     </children>
+                 </AnchorPane>
+             </top>
+         </BorderPane>
+-        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="100.0">
+-            <children>
+-                <Text strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-fill: #3A3A3A; -fx-stroke-width: 2.0;" text="COCINA" textAlignment="CENTER">
+-                    <font>
+-                        <Font name="System Bold" size="50.0" />
+-                    </font>
+-                    <VBox.margin>
+-                        <Insets top="20.0" />
+-                    </VBox.margin>
+-                </Text>
+-
+-                <VBox prefHeight="589.0" prefWidth="408.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px; -fx-opacity: 1;">
+-                    <VBox.margin>
+-                        <Insets />
+-                    </VBox.margin>
+-                    <children>
+-                        <!-- Correo Electrónico -->
+-                        <Text style="-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;" text="CORREO ELECTRÓNICO" wrappingWidth="517.8614501953125">
+-                            <VBox.margin>
+-                                <Insets left="50.0" />
+-                            </VBox.margin></Text>
+-                        <TextField fx:id="emailField" maxWidth="407.0" prefHeight="43.0" prefWidth="407.0" promptText="Introduce tu correo" style="-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                           -fx-padding: 10px; -fx-font-size: 14px;">
+-                            <VBox.margin>
+-                                <Insets left="50.0" top="10.0" />
+-                            </VBox.margin></TextField>
+-
+-                        <!-- Contraseña -->
+-                        <Text style="-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;" text="CONTRASEÑA" wrappingWidth="465.5390625">
+-                            <VBox.margin>
+-                                <Insets left="50.0" top="25.0" />
+-                            </VBox.margin></Text>
+-                        <PasswordField fx:id="passwordField" maxWidth="407.0" minWidth="400.0" prefHeight="43.0" prefWidth="407.0" promptText="Introduce tu contraseña" style="-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                               -fx-padding: 10px; -fx-font-size: 14px;">
+-                            <VBox.margin>
+-                                <Insets left="50.0" top="10.0" />
+-                            </VBox.margin></PasswordField>
+-
+-                        <!-- Botón Continuar -->
+-                        <Button alignment="CENTER" contentDisplay="CENTER" minWidth="200.0" onAction="#handleLogin" prefHeight="40.0" prefWidth="407.0" style="-fx-background-color: #1D1D1B; -fx-text-fill: white;                                                           -fx-font-size: 16px; -fx-font-weight: bold;                                                           -fx-background-radius: 10px; -fx-padding: 10px;" text="Continuar" textAlignment="CENTER">
+-                            <VBox.margin>
+-                                <Insets left="50.0" top="50.0" />
+-                            </VBox.margin></Button>
+-                        <HBox prefHeight="42.0" prefWidth="547.0">
+-                            <children>
+-                                <Line endX="33.29289245605469" endY="-0.10749739408493042" startX="-100.0">
+-                                    <HBox.margin>
+-                                        <Insets left="50.0" top="15.0" />
+-                                    </HBox.margin>
+-                                </Line>
+-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Accede con" wrappingWidth="96.59869384765625">
+-                                    <HBox.margin>
+-                                        <Insets left="25.0" top="5.0" />
+-                                    </HBox.margin>
+-                                    <font>
+-                                        <Font name="System Bold" size="18.0" />
+-                                    </font>
+-                                </Text>
+-                                <Line endX="47.66117858886719" endY="-7.241964340209961E-5" startX="180.89266967773438" startY="3.4034252166748047E-4">
+-                                    <HBox.margin>
+-                                        <Insets left="15.0" top="15.0" />
+-                                    </HBox.margin>
+-                                </Line>
+-                            </children>
+-                            <VBox.margin>
+-                                <Insets top="15.0" />
+-                            </VBox.margin>
+-                        </HBox>
+-                        <HBox maxWidth="407.0" prefHeight="40.0" prefWidth="423.0" style="-fx-background-color: #eeeeee; -fx-border-radius: 10px; -fx-border-color: #9B9B9B;">
+-                            <children>
+-                                <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+-                                    <HBox.margin>
+-                                        <Insets left="40.0" top="5.0" />
+-                                    </HBox.margin>
+-                                    <image>
+-                                        <Image url="@../assets/imgicons8com.png" />
+-                                    </image>
+-                                </ImageView>
+-                                <Label prefHeight="22.0" prefWidth="155.0" text="Accede con Google">
+-                                    <HBox.margin>
+-                                        <Insets left="70.0" top="8.0" />
+-                                    </HBox.margin>
+-                                    <font>
+-                                        <Font name="System Bold" size="17.0" />
+-                                    </font>
+-                                </Label>
+-                            </children>
+-                            <VBox.margin>
+-                                <Insets left="50.0" />
+-                            </VBox.margin>
+-                        </HBox>
+-                    </children>
+-                </VBox>
+-            </children>
+-            <padding>
+-                <Insets left="700.0" right="700.0" top="150.0" />
+-            </padding>
+-        </VBox>
+     </children>
+ </StackPane>
+Index: src/main/resources/screens/loginScreen.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<?import javafx.geometry.Insets?>\n<?import javafx.scene.control.Button?>\n<?import javafx.scene.control.Label?>\n<?import javafx.scene.control.PasswordField?>\n<?import javafx.scene.control.TextField?>\n<?import javafx.scene.image.Image?>\n<?import javafx.scene.image.ImageView?>\n<?import javafx.scene.layout.AnchorPane?>\n<?import javafx.scene.layout.BorderPane?>\n<?import javafx.scene.layout.HBox?>\n<?import javafx.scene.layout.StackPane?>\n<?import javafx.scene.layout.VBox?>\n<?import javafx.scene.shape.Line?>\n<?import javafx.scene.text.Font?>\n<?import javafx.scene.text.Text?>\n\n<StackPane maxHeight=\"-Infinity\" maxWidth=\"-Infinity\" minHeight=\"-Infinity\" minWidth=\"-Infinity\" prefHeight=\"1080.0\" prefWidth=\"1920.0\" xmlns=\"http://javafx.com/javafx/23.0.1\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"org.example.mibocatajavafx.controller.LoginController\">\n   <children>\n      <BorderPane prefHeight=\"200.0\" prefWidth=\"200.0\">\n         <top>\n            <AnchorPane prefHeight=\"134.0\" prefWidth=\"1916.0\" style=\"-fx-background-color: #1d1d1b;\" BorderPane.alignment=\"CENTER\">\n               <children>\n                  <ImageView fitHeight=\"120.0\" fitWidth=\"150.0\" pickOnBounds=\"true\" preserveRatio=\"true\" x=\"100.0\" y=\"5.0\">\n                     <image>\n                        <Image url=\"@../assets/img.png\" />\n                     </image>\n                  </ImageView>\n               </children>\n            </AnchorPane>\n         </top>\n      </BorderPane>\n      <VBox alignment=\"CENTER\" prefHeight=\"200.0\" prefWidth=\"100.0\" spacing=\"100.0\">\n         <children>\n            <Text strokeType=\"OUTSIDE\" strokeWidth=\"2.0\" style=\"-fx-fill: #3A3A3A; -fx-stroke-width: 2.0;\" text=\"INICIAR SESIÓN\" textAlignment=\"CENTER\">\n               <font>\n                  <Font name=\"System Bold\" size=\"50.0\" />\n               </font>\n               <VBox.margin>\n                  <Insets top=\"20.0\" />\n               </VBox.margin>\n            </Text>\n\n            <VBox prefHeight=\"589.0\" prefWidth=\"408.0\" style=\"-fx-background-radius: 30px; -fx-border-radius: 30px; -fx-opacity: 1;\">\n               <VBox.margin>\n                  <Insets />\n               </VBox.margin>\n               <children>\n                  <!-- Correo Electrónico -->\n                  <Text style=\"-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;\" text=\"CORREO ELECTRÓNICO\" wrappingWidth=\"517.8614501953125\">\n                     <VBox.margin>\n                        <Insets left=\"50.0\" />\n                     </VBox.margin></Text>\n                  <TextField fx:id=\"emailField\" maxWidth=\"407.0\" prefHeight=\"43.0\" prefWidth=\"407.0\" promptText=\"Introduce tu correo\" style=\"-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                           -fx-padding: 10px; -fx-font-size: 14px;\">\n                     <VBox.margin>\n                        <Insets left=\"50.0\" top=\"10.0\" />\n                     </VBox.margin></TextField>\n\n                  <!-- Contraseña -->\n                  <Text style=\"-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;\" text=\"CONTRASEÑA\" wrappingWidth=\"465.5390625\">\n                     <VBox.margin>\n                        <Insets left=\"50.0\" top=\"25.0\" />\n                     </VBox.margin></Text>\n                  <PasswordField fx:id=\"passwordField\" maxWidth=\"407.0\" minWidth=\"400.0\" prefHeight=\"43.0\" prefWidth=\"407.0\" promptText=\"Introduce tu contraseña\" style=\"-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                               -fx-padding: 10px; -fx-font-size: 14px;\">\n                     <VBox.margin>\n                        <Insets left=\"50.0\" top=\"10.0\" />\n                     </VBox.margin></PasswordField>\n\n                  <!-- Botón Continuar -->\n                  <Button alignment=\"CENTER\" contentDisplay=\"CENTER\" minWidth=\"200.0\" onAction=\"#handleLogin\" prefHeight=\"40.0\" prefWidth=\"407.0\" style=\"-fx-background-color: #1D1D1B; -fx-text-fill: white;                                                           -fx-font-size: 16px; -fx-font-weight: bold;                                                           -fx-background-radius: 10px; -fx-padding: 10px;\" text=\"Continuar\" textAlignment=\"CENTER\">\n                     <VBox.margin>\n                        <Insets left=\"50.0\" top=\"50.0\" />\n                     </VBox.margin></Button>\n                  <HBox prefHeight=\"42.0\" prefWidth=\"547.0\">\n                     <children>\n                        <Line endX=\"33.29289245605469\" endY=\"-0.10749739408493042\" startX=\"-100.0\">\n                           <HBox.margin>\n                              <Insets left=\"50.0\" top=\"15.0\" />\n                           </HBox.margin>\n                        </Line>\n                        <Text strokeType=\"OUTSIDE\" strokeWidth=\"0.0\" text=\"Accede con\" wrappingWidth=\"96.59869384765625\">\n                           <HBox.margin>\n                              <Insets left=\"25.0\" top=\"5.0\" />\n                           </HBox.margin>\n                           <font>\n                              <Font name=\"System Bold\" size=\"18.0\" />\n                           </font>\n                        </Text>\n                        <Line endX=\"47.66117858886719\" endY=\"-7.241964340209961E-5\" startX=\"180.89266967773438\" startY=\"3.4034252166748047E-4\">\n                           <HBox.margin>\n                              <Insets left=\"15.0\" top=\"15.0\" />\n                           </HBox.margin>\n                        </Line>\n                     </children>\n                     <VBox.margin>\n                        <Insets top=\"15.0\" />\n                     </VBox.margin>\n                  </HBox>\n                  <HBox maxWidth=\"407.0\" prefHeight=\"40.0\" prefWidth=\"423.0\" style=\"-fx-background-color: #eeeeee; -fx-border-radius: 10px; -fx-border-color: #9B9B9B;\">\n                     <children>\n                        <ImageView fitHeight=\"28.0\" fitWidth=\"29.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\n                           <HBox.margin>\n                              <Insets left=\"40.0\" top=\"5.0\" />\n                           </HBox.margin>\n                           <image>\n                              <Image url=\"@../assets/imgicons8com.png\" />\n                           </image>\n                        </ImageView>\n                        <Label prefHeight=\"22.0\" prefWidth=\"155.0\" text=\"Accede con Google\">\n                           <HBox.margin>\n                              <Insets left=\"70.0\" top=\"8.0\" />\n                           </HBox.margin>\n                           <font>\n                              <Font name=\"System Bold\" size=\"17.0\" />\n                           </font>\n                        </Label>\n                     </children>\n                     <VBox.margin>\n                        <Insets left=\"50.0\" />\n                     </VBox.margin>\n                  </HBox>\n               </children>\n            </VBox>\n         </children>\n         <padding>\n            <Insets left=\"700.0\" right=\"700.0\" top=\"150.0\" />\n         </padding>\n      </VBox>\n   </children>\n</StackPane>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/screens/loginScreen.fxml b/src/main/resources/screens/loginScreen.fxml
+--- a/src/main/resources/screens/loginScreen.fxml	
++++ b/src/main/resources/screens/loginScreen.fxml	
+@@ -20,7 +20,7 @@
+    <children>
+       <BorderPane prefHeight="200.0" prefWidth="200.0">
+          <top>
+-            <AnchorPane prefHeight="134.0" prefWidth="1916.0" style="-fx-background-color: #1d1d1b;" BorderPane.alignment="CENTER">
++            <AnchorPane prefHeight="134.0" prefWidth="1920.0" style="-fx-background-color: #1d1d1b;" BorderPane.alignment="CENTER">
+                <children>
+                   <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" x="100.0" y="5.0">
+                      <image>
+@@ -33,46 +33,51 @@
+       </BorderPane>
+       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="100.0">
+          <children>
+-            <Text strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-fill: #3A3A3A; -fx-stroke-width: 2.0;" text="INICIAR SESIÓN" textAlignment="CENTER">
++            <Text strokeType="OUTSIDE" strokeWidth="2.0" style="-fx-fill: #3A3A3A; -fx-stroke-width: 2.0;" text="INICIAR SESIÓN" textAlignment="CENTER" wrappingWidth="347.62890625">
+                <font>
+                   <Font name="System Bold" size="50.0" />
+                </font>
+                <VBox.margin>
+-                  <Insets top="20.0" />
++                  <Insets left="25.0" top="20.0" />
+                </VBox.margin>
+             </Text>
+ 
+-            <VBox prefHeight="589.0" prefWidth="408.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px; -fx-opacity: 1;">
++                  <VBox alignment="TOP_CENTER" prefHeight="589.0" prefWidth="408.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px; -fx-opacity: 1;">
+                <VBox.margin>
+                   <Insets />
+                </VBox.margin>
+                <children>
+                   <!-- Correo Electrónico -->
+-                  <Text style="-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;" text="CORREO ELECTRÓNICO" wrappingWidth="517.8614501953125">
++                  <Text style="-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;" text="CORREO ELECTRÓNICO" wrappingWidth="401.15618896484375">
+                      <VBox.margin>
+                         <Insets left="50.0" />
+-                     </VBox.margin></Text>
++                     </VBox.margin>
++                  </Text>
+                   <TextField fx:id="emailField" maxWidth="407.0" prefHeight="43.0" prefWidth="407.0" promptText="Introduce tu correo" style="-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                           -fx-padding: 10px; -fx-font-size: 14px;">
+                      <VBox.margin>
+                         <Insets left="50.0" top="10.0" />
+-                     </VBox.margin></TextField>
++                     </VBox.margin>
++                  </TextField>
+ 
+-                  <!-- Contraseña -->
+-                  <Text style="-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;" text="CONTRASEÑA" wrappingWidth="465.5390625">
++                        <!-- Contraseña -->
++                  <Text style="-fx-font-size: 25px; -fx-fill: #3A3A3A; -fx-font-weight: bold;" text="CONTRASEÑA" wrappingWidth="401.5394287109375">
+                      <VBox.margin>
+                         <Insets left="50.0" top="25.0" />
+-                     </VBox.margin></Text>
++                     </VBox.margin>
++                  </Text>
+                   <PasswordField fx:id="passwordField" maxWidth="407.0" minWidth="400.0" prefHeight="43.0" prefWidth="407.0" promptText="Introduce tu contraseña" style="-fx-background-color: #EDEDED; -fx-background-radius: 10px;                                               -fx-padding: 10px; -fx-font-size: 14px;">
+                      <VBox.margin>
+                         <Insets left="50.0" top="10.0" />
+-                     </VBox.margin></PasswordField>
++                     </VBox.margin>
++                  </PasswordField>
+ 
+-                  <!-- Botón Continuar -->
++                        <!-- Botón Continuar -->
+                   <Button alignment="CENTER" contentDisplay="CENTER" minWidth="200.0" onAction="#handleLogin" prefHeight="40.0" prefWidth="407.0" style="-fx-background-color: #1D1D1B; -fx-text-fill: white;                                                           -fx-font-size: 16px; -fx-font-weight: bold;                                                           -fx-background-radius: 10px; -fx-padding: 10px;" text="Continuar" textAlignment="CENTER">
+                      <VBox.margin>
+                         <Insets left="50.0" top="50.0" />
+-                     </VBox.margin></Button>
+-                  <HBox prefHeight="42.0" prefWidth="547.0">
++                     </VBox.margin>
++                  </Button>
++                  <HBox alignment="TOP_CENTER" prefHeight="42.0" prefWidth="437.0">
+                      <children>
+                         <Line endX="33.29289245605469" endY="-0.10749739408493042" startX="-100.0">
+                            <HBox.margin>
+Index: src/main/resources/css/login.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/css/login.css b/src/main/resources/css/login.css
+new file mode 100644
+--- /dev/null	
++++ b/src/main/resources/css/login.css	
+@@ -0,0 +1,144 @@
++/* Estilos generales */
++.stack-pane {
++    -fx-pref-width: 1920px;
++    -fx-pref-height: 1080px;
++    -fx-max-width: 1920px;
++    -fx-max-height: 1080px;
++    -fx-min-width: 1920px;
++    -fx-min-height: 1080px;
++    -fx-background-color: white;
++}
++
++/* Estilos para el BorderPane */
++.border-pane {
++    -fx-background-color: #1d1d1b;
++    -fx-pref-width: 1920px;
++    -fx-pref-height: 1080px;
++}
++
++/* Estilos para el AnchorPane del encabezado */
++.header-pane {
++    -fx-background-color: #1d1d1b;
++    -fx-pref-height: 134px;
++    -fx-pref-width: 1916px;
++}
++
++/* Estilos para el ImageView del logo */
++.logo {
++    -fx-fit-height: 120px;
++    -fx-fit-width: 150px;
++    -fx-layout-x: 100px;
++    -fx-layout-y: 5px;
++}
++
++/* Estilos para el VBox central */
++.center-vbox {
++    -fx-alignment: center;
++    -fx-spacing: 100px;
++    -fx-padding: 150px 700px 0 700px;
++    -fx-pref-width: 1920px;
++    -fx-pref-height: 1080px;
++}
++
++/* Estilos para el texto "INICIAR SESIÓN" */
++.login-title {
++    -fx-fill: #3A3A3A;
++    -fx-stroke-width: 2px;
++    -fx-font-size: 50px;
++    -fx-font-family: "System Bold";
++    -fx-text-alignment: center;
++    -fx-padding: 20px 0 0 0;
++}
++
++/* Estilos para el VBox del formulario */
++.form-vbox {
++    -fx-background-radius: 30px;
++    -fx-border-radius: 30px;
++    -fx-opacity: 1;
++    -fx-pref-width: 408px;
++    -fx-pref-height: 589px;
++}
++
++/* Estilos para los textos de los campos */
++.field-label {
++    -fx-font-size: 25px;
++    -fx-fill: #3A3A3A;
++    -fx-font-weight: bold;
++    -fx-padding: 0 0 0 50px;
++}
++
++/* Estilos para los campos de texto */
++.text-field, .password-field {
++    -fx-background-color: #EDEDED;
++    -fx-background-radius: 10px;
++    -fx-padding: 10px;
++    -fx-font-size: 14px;
++    -fx-pref-height: 43px;
++    -fx-pref-width: 407px;
++    -fx-max-width: 407px;
++    -fx-margin: 10px 0 0 50px;
++}
++
++/* Estilos para el botón "Continuar" */
++.login-button {
++    -fx-background-color: #1D1D1B;
++    -fx-text-fill: white;
++    -fx-font-size: 16px;
++    -fx-font-weight: bold;
++    -fx-background-radius: 10px;
++    -fx-padding: 10px;
++    -fx-pref-height: 40px;
++    -fx-pref-width: 407px;
++    -fx-min-width: 200px;
++    -fx-alignment: center;
++    -fx-content-display: center;
++    -fx-text-alignment: center;
++    -fx-margin: 50px 0 0 50px;
++}
++
++/* Estilos para el HBox de "Accede con" */
++.access-hbox {
++    -fx-pref-height: 42px;
++    -fx-pref-width: 547px;
++    -fx-margin: 15px 0 0 0;
++}
++
++/* Estilos para las líneas de separación */
++.separator-line {
++    -fx-stroke: #9B9B9B;
++    -fx-stroke-width: 2px;
++}
++
++/* Estilos para el texto "Accede con" */
++.access-text {
++    -fx-font-size: 18px;
++    -fx-font-family: "System Bold";
++    -fx-padding: 5px 0 0 25px;
++}
++
++/* Estilos para el HBox de Google */
++.google-hbox {
++    -fx-background-color: #eeeeee;
++    -fx-border-radius: 10px;
++    -fx-border-color: #9B9B9B;
++    -fx-pref-height: 40px;
++    -fx-pref-width: 423px;
++    -fx-max-width: 407px;
++    -fx-margin: 0 0 0 50px;
++}
++
++/* Estilos para el ImageView de Google */
++.google-icon {
++    -fx-fit-height: 28px;
++    -fx-fit-width: 29px;
++    -fx-margin: 5px 0 0 40px;
++}
++
++/* Estilos para el Label de Google */
++.google-label {
++    -fx-font-size: 17px;
++    -fx-font-family: "System Bold";
++    -fx-pref-height: 22px;
++    -fx-pref-width: 155px;
++    -fx-margin: 8px 0 0 70px;
++}
+\ No newline at end of file
+Index: src/main/java/org/example/mibocatajavafx/utils/UsuarioSesion.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/mibocatajavafx/utils/UsuarioSesion.java b/src/main/java/org/example/mibocatajavafx/utils/UsuarioSesion.java
+new file mode 100644
+--- /dev/null	
++++ b/src/main/java/org/example/mibocatajavafx/utils/UsuarioSesion.java	
+@@ -0,0 +1,27 @@
++package org.example.mibocatajavafx.utils;
++
++public class UsuarioSesion {
++    private static String email;
++    private static String nombre;
++
++    public static String getEmail() {
++        return email;
++    }
++
++    public static void setEmail(String email) {
++        UsuarioSesion.email = email;
++    }
++
++    public static String getNombre() {
++        return nombre;
++    }
++
++    public static void setNombre(String nombre) {
++        UsuarioSesion.nombre = nombre;
++    }
++
++    public static void cerrarSesion() {
++        email = null;
++        nombre = null;
++    }
++}
