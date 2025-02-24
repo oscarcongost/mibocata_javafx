@@ -2,6 +2,7 @@ package org.example.mibocatajavafx.dao;
 
 import jakarta.persistence.NoResultException;
 import org.example.mibocatajavafx.models.Alumnos;
+import org.example.mibocatajavafx.models.Usuario;
 import org.example.mibocatajavafx.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -11,6 +12,7 @@ import java.util.List;
 
 public class AlumnoDAO {
 
+    // Métodos existentes de CRUD
     public void guardarAlumno(Alumnos alumno) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -72,9 +74,7 @@ public class AlumnoDAO {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query query = session.createQuery("from Alumnos where correo = :correo");
             query.setParameter("correo", correo);
-
             Alumnos alumnos = (Alumnos) query.uniqueResult();
-
             return alumnos.getNombre();
         } catch (Exception e) {
             return null;
@@ -87,9 +87,30 @@ public class AlumnoDAO {
             query.setParameter("nombre", nombre);
             return (Alumnos) query.getSingleResult();
         } catch (NoResultException e) {
-            System.out.println("No se encontro el alumno");
+            System.out.println("No se encontró el alumno");
             return null;
         }
     }
 
+    public Usuario buscarUsuario(String email, String contrasena) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Usuario> query = session.createQuery(
+                    "FROM Usuario WHERE email = :email AND contrasena = :contrasena", Usuario.class);
+            query.setParameter("email", email);
+            query.setParameter("contrasena", contrasena);
+            return query.uniqueResult();
+        }
+    }
+
+    public Alumnos buscarAlumno(String correo, String pass) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Alumnos> query = session.createQuery(
+                    "FROM Alumnos WHERE correo = :correo AND pass = :pass", Alumnos.class);
+            query.setParameter("correo", correo);
+            query.setParameter("pass", pass);
+            return query.uniqueResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }
