@@ -36,9 +36,9 @@ public class LoginController {
         FXMLLoader loader;
         Parent root;
 
-        if (alumnoService.validarCredenciales(email, contrasena)) {
-            String rol = alumnoService.getRolUsuario();
-            String nombreUsuario = alumnoService.conseguirAlumno(email);
+        if (alumnoService.autenticarCredenciales(email, contrasena)) {
+            String rol = alumnoService.obtenerRolUsuario();
+            String nombreUsuario = alumnoService.obtenerAlumnoPorCorreo(email);
 
             try {
                 switch (rol) {
@@ -55,7 +55,7 @@ public class LoginController {
                         root = loader.load();
 
                         SeleccionBocataController seleccionBocataController = loader.getController();
-                        seleccionBocataController.setNombreUsuario(nombreUsuario);
+                        seleccionBocataController.establecerNombreUsuario(nombreUsuario);
                         break;
                     default:
                         System.out.println("Rol desconocido.");

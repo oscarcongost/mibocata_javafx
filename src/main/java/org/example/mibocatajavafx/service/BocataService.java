@@ -6,9 +6,9 @@ import org.example.mibocatajavafx.models.Bocadillo;
 public class BocataService {
     private final BocadilloDAO bocataDAO = new BocadilloDAO();
 
-    public Bocadillo getBocadilloNombre(String nombre) {
+    public Bocadillo obtenerBocadilloPorNombre(String nombre) {
         if (!nombre.isEmpty() || !nombre.isBlank()) {
-            return bocataDAO.getBocadilloNombre(nombre);
+            return bocataDAO.obtenerBocadilloPorNombre(nombre);
         }
         return null;
     }

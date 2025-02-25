@@ -51,7 +51,6 @@ public class CocinaController {
     @FXML
     private Button btnSiguiente;
 
-    private LocalDate fechaSeleccionada = LocalDate.now();
     private final PedidoDAO pedidoDAO = new PedidoDAO();
     private List<Pedido> listaPedidos;
     private static final int REGISTROS_POR_PAGINA = 10;
@@ -100,7 +99,6 @@ public class CocinaController {
         comboBoxTipo.getItems().addAll("caliente", "frio", "");
 
         btnFiltrar.setOnAction(event -> {
-            System.out.println("✔ Botón Filtrar presionado");
             aplicarFiltro();
         });
         btnAnterior.setDisable(true);
@@ -111,7 +109,7 @@ public class CocinaController {
     }
 
     private void cargarPedidos() {
-        listaPedidos = pedidoDAO.recogerPedidosPendientes();
+        listaPedidos = pedidoDAO.obtenerPedidosPendientes();
         aplicarFiltro();
     }
 
@@ -137,7 +135,7 @@ public class CocinaController {
 
     private void configurarPaginacion(List<Pedido> pedidos) {
         totalPaginas = (int) Math.ceil((double) pedidos.size() / REGISTROS_POR_PAGINA);
-        totalPaginas = Math.max(totalPaginas, 1); // Asegurar al menos 1 página
+        totalPaginas = Math.max(totalPaginas, 1);
         pedidosPaginados.setAll(pedidos);
         txtPagina.setText("1");
         actualizarTabla(0);
@@ -150,7 +148,7 @@ public class CocinaController {
         int fin = Math.min(inicio + REGISTROS_POR_PAGINA, pedidosPaginados.size());
         tablaPedidos.setItems(FXCollections.observableArrayList(pedidosPaginados.subList(inicio, fin)));
 
-        txtPagina.setText(String.valueOf(paginaIndex + 1)); // Mostrar en la UI la página actual
+        txtPagina.setText(String.valueOf(paginaIndex + 1));
         btnAnterior.setDisable(paginaIndex == 0);
         btnSiguiente.setDisable(paginaIndex >= totalPaginas - 1);
 
@@ -183,7 +181,7 @@ public class CocinaController {
     }
 
     @FXML
-    public void anteriorPagina(ActionEvent actionEvent) {
+    public void paginaAnterior(ActionEvent actionEvent) {
         int paginaActual = Integer.parseInt(txtPagina.getText());
         if (paginaActual > 1) {
             paginaActual--;
@@ -192,11 +190,12 @@ public class CocinaController {
     }
 
     @FXML
-    public void siguientePagina(ActionEvent actionEvent) {
+    public void paginaSiguiente(ActionEvent actionEvent) {
         int paginaActual = Integer.parseInt(txtPagina.getText());
         if (paginaActual < totalPaginas) {
             paginaActual++;
             actualizarTabla(paginaActual - 1);
         }
     }
+
 }

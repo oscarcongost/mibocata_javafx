@@ -112,7 +112,7 @@
             <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-padding: 20px;" HBox.hgrow="ALWAYS">
                 <Label fx:id="bocadilloSeleccionadoLabel"
                        style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: Bold;"
-                       text="No hay bocadillo seleccionado"/>
+                       text="No hay bocadillo seleccionado:"/>
 
                 <Region HBox.hgrow="ALWAYS"/>
 

@@ -32,7 +32,7 @@ public class SeleccionBocataController {
     private final BocataService bocataService = new BocataService();
     private final AlumnoService alumnoService = new AlumnoService();
     private final PedidoService pedidoService = new PedidoService();
-    private String nombreUsuario;
+    private String nombreAlumno;
     private Pedido pedidoActual;
     private Pedido pedidoExistente;
 
@@ -58,31 +58,47 @@ public class SeleccionBocataController {
     private Label bocadilloSeleccionadoLabel;
 
     @FXML
-    private Label precioSeleccionadoLabel;
-
-    @FXML
     private Button btnConfirmar;
 
     @FXML
     public void initialize() {
-        if (nombreUsuario != null) {
-            nombreLabel.setText(nombreUsuario);
+        if (nombreAlumno != null) {
+            nombreLabel.setText(nombreAlumno);
         }
-        cargarBocadillosDeHoy();
+        mostrarBocadillosHoy();
 
         vboxFrio.setOnMouseClicked(mouseEvent -> seleccionarBocadillo("frio"));
         vboxCaliente.setOnMouseClicked(mouseEvent -> seleccionarBocadillo("caliente"));
 
-        btnConfirmar.setOnMouseClicked(mouseEvent -> realizarPedido());
+        btnConfirmar.setOnMouseClicked(mouseEvent -> confirmarPedido());
+    }
+
+    @FXML
+    private void cerrarSesion() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/loginScreen.fxml"));
+            Parent root = loader.load();
+
+            Stage loginStage = new Stage();
+            loginStage.setScene(new Scene(root, 1920, 1080));
+            loginStage.setTitle("Iniciar Sesión");
+            loginStage.setResizable(false); // Evita que se redimensione
+            loginStage.show();
+
+            Stage currentStage = (Stage) btnCerrarSesion.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void seleccionarBocadillo(String tipo) {
         String nombreBocadillo = tipo.equals("frio") ? nombreFrio.getText() : nombreCaliente.getText();
-        Bocadillo bocadillo = bocataService.getBocadilloNombre(nombreBocadillo);
+        Bocadillo bocadillo = bocataService.obtenerBocadilloPorNombre(nombreBocadillo);
         double precio = bocadillo.getPvp();
-        Alumnos alumno = alumnoService.conseguirAlumnoNombre(nombreUsuario);
+        Alumnos alumno = alumnoService.obtenerAlumnoPorNombre(nombreAlumno);
 
-        pedidoExistente = pedidoService.conseguirPedidoHoy(alumno.getMac());
+        pedidoExistente = pedidoService.obtenerPedidoPorAlumno(alumno.getMac());
 
         if (pedidoExistente != null) {
 
@@ -92,28 +108,27 @@ public class SeleccionBocataController {
                 pedidoExistente.setFecha(LocalDate.now());
                 pedidoExistente.setHora(LocalTime.now());
 
-                pedidoService.update(pedidoExistente);
+                pedidoService.actualizarPedido(pedidoExistente);
                 pedidoActual = pedidoExistente;
-                mostrarAlerta("Pedido actualizado", "Tu pedido ha sido modificado.", Alert.AlertType.CONFIRMATION);
+                mostrarMensajeAlerta("Pedido actualizado", "Tu pedido ha sido modificado.", Alert.AlertType.CONFIRMATION);
             }
         } else {
             pedidoActual = new Pedido(alumno, bocadillo, LocalDate.now(), LocalTime.now(), false);
-            pedidoService.save(pedidoActual);
-            mostrarAlerta("Pedido creado", "Tu nuevo pedido ha sido registrado.", Alert.AlertType.CONFIRMATION);
+            pedidoService.guardarPedido(pedidoActual);
+            mostrarMensajeAlerta("Pedido creado", "Tu nuevo pedido ha sido registrado.", Alert.AlertType.CONFIRMATION);
         }
 
-        bocadilloSeleccionadoLabel.setText(nombreBocadillo + " | " + precio + " €");
+        bocadilloSeleccionadoLabel.setText("Bocadillo Seleccionado: " + nombreBocadillo + " | " + precio + " €");
     }
 
-
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void establecerNombreUsuario(String nombreUsuario) {
+        this.nombreAlumno = nombreUsuario;
         if (nombreLabel != null) {
             nombreLabel.setText(nombreUsuario);
         }
     }
 
-    public List<Bocadillo> obtenerBocadillosDeHoy() {
+    public List<Bocadillo> listarBocadillosHoy() {
         String diaHoy = LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -127,8 +142,8 @@ public class SeleccionBocataController {
         }
     }
 
-    public void cargarBocadillosDeHoy() {
-        List<Bocadillo> bocadillos = obtenerBocadillosDeHoy();
+    public void mostrarBocadillosHoy() {
+        List<Bocadillo> bocadillos = listarBocadillosHoy();
 
         Bocadillo bocadilloFrio = null;
         Bocadillo bocadilloCaliente = null;
@@ -162,47 +177,27 @@ public class SeleccionBocataController {
         }
     }
 
-    @FXML
-    private void cerrarSesion() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/loginScreen.fxml"));
-            Parent root = loader.load();
-
-            Stage loginStage = new Stage();
-            loginStage.setScene(new Scene(root, 1920, 1080));
-            loginStage.setTitle("Iniciar Sesión");
-            loginStage.setResizable(false); // Evita que se redimensione
-            loginStage.show();
-
-            Stage currentStage = (Stage) btnCerrarSesion.getScene().getWindow();
-            currentStage.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void realizarPedido() {
+    private void confirmarPedido() {
         if (pedidoActual == null) {
-            mostrarAlerta("Error", "No hay bocadillo seleccionado.", Alert.AlertType.WARNING);
+            mostrarMensajeAlerta("Error", "No hay bocadillo seleccionado.", Alert.AlertType.WARNING);
             return;
         }
 
-        // Si ya existe un pedido para hoy, no se permite hacer otro
         if (pedidoExistente != null) {
-            mostrarAlerta("Pedido ya existente", "Ya tienes un pedido para hoy. Solo puedes modificarlo.", Alert.AlertType.WARNING);
+            mostrarMensajeAlerta("Pedido ya existente", "Ya tienes un pedido para hoy. Solo puedes modificarlo.", Alert.AlertType.WARNING);
             return;
         }
 
-        // Guardamos el pedido nuevo
-        pedidoService.save(pedidoActual);
-        mostrarAlerta("Pedido creado", "Tu pedido ha sido registrado con éxito.", Alert.AlertType.CONFIRMATION);
+        pedidoService.guardarPedido(pedidoActual);
+        mostrarMensajeAlerta("Pedido creado", "Tu pedido ha sido registrado con éxito.", Alert.AlertType.CONFIRMATION);
         System.out.println("Pedido creado con ID: " + pedidoActual.getId());
     }
 
-    private void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {
+    private void mostrarMensajeAlerta(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
         alert.setContentText(contenido);
         alert.showAndWait();
     }
+
 }

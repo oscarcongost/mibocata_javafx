@@ -1,7 +1,6 @@
 
 package org.example.mibocatajavafx.dao;
 
-import jakarta.persistence.NoResultException;
 import org.example.mibocatajavafx.models.Pedido;
 import org.example.mibocatajavafx.utils.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -13,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class PedidoDAO {
-    public Pedido pedidoHoy(String alumnoMac) {
+    public Pedido obtenerPedidoHoyPorAlumno(String alumnoMac) {
         LocalDate diaHoy = LocalDate.now();
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<Pedido> query = session.createQuery("from Pedido p where p.alumno.mac = :alumnoMac and p.fecha = :fecha", Pedido.class);
@@ -29,7 +28,7 @@ public class PedidoDAO {
     }
 
 
-    public void save(Pedido pedido) {
+    public void guardarPedido(Pedido pedido) {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
@@ -67,7 +66,7 @@ public class PedidoDAO {
         }
     }
 
-    public List<Pedido> recogerPedidosPendientes() {
+    public List<Pedido> obtenerPedidosPendientes() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<Pedido> query = session.createQuery("FROM Pedido p WHERE p.retirado = false ", Pedido.class);
             return query.getResultList();

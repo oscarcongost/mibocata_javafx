@@ -10,22 +10,22 @@ public class PedidoService {
 
     private final PedidoDAO pedidoDAO = new PedidoDAO();
 
-    public Pedido conseguirPedidoHoy(String alumnoMac) {
+    public Pedido obtenerPedidoPorAlumno(String alumnoMac) {
         if (alumnoMac == null) {
             throw new IllegalArgumentException("El alumno no puede ser nulo");
         }
-        return pedidoDAO.pedidoHoy(alumnoMac);
+        return pedidoDAO.obtenerPedidoHoyPorAlumno(alumnoMac);
     }
 
 
-    public void save(Pedido pedido) {
+    public void guardarPedido(Pedido pedido) {
         if (pedido.getFecha() == null || pedido.getAlumno() == null || pedido.getBocadillo() == null) {
             throw new IllegalArgumentException("El pedido no puede tener valores nulos");
         }
-        pedidoDAO.save(pedido);
+        pedidoDAO.guardarPedido(pedido);
     }
 
-    public void update(Pedido pedidoActual) {
+    public void actualizarPedido(Pedido pedidoActual) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();
             session.update(pedidoActual);

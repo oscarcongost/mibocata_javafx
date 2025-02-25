@@ -96,4 +96,5 @@ public class Pedido {
     public void setRetirado(boolean retirado) {
         this.retirado = retirado;
     }
+
 }

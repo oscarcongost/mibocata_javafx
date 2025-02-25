@@ -8,9 +8,9 @@ public class AlumnoService {
     private String rolUsuario;
     private AlumnoDAO alumnoDAO = new AlumnoDAO();
 
-    public boolean validarCredenciales(String correoUsuario, String contrasena) {
+    public boolean autenticarCredenciales(String correoUsuario, String contrasena) {
 
-        Usuario usuario = alumnoDAO.buscarUsuario(correoUsuario, contrasena);
+        Usuario usuario = alumnoDAO.obtenerUsuarioPorCredenciales(correoUsuario, contrasena);
         if (usuario != null) {
             rolUsuario = usuario.getRol().toLowerCase();
             if (rolUsuario.equals("admin") || rolUsuario.equals("cocina")) {
@@ -19,7 +19,7 @@ public class AlumnoService {
             }
         }
 
-        Alumnos alumno = alumnoDAO.buscarAlumno(correoUsuario, contrasena);
+        Alumnos alumno = alumnoDAO.obtenerAlumnoPorNombre(correoUsuario, contrasena);
         if (alumno != null) {
             rolUsuario = "alumno";
             System.out.println("Bienvenido, Alumno.");
@@ -30,21 +30,21 @@ public class AlumnoService {
         return false;
     }
 
-    public String conseguirAlumno(String correoAlumno) {
+    public String obtenerAlumnoPorCorreo(String correoAlumno) {
         if (correoAlumno.isBlank() || correoAlumno.isEmpty()) {
             throw new IllegalArgumentException("El campo 'correo' es obligatorio");
         }
-        return alumnoDAO.conseguirAlumno(correoAlumno);
+        return alumnoDAO.obtenerNombreAlumnoPorCorreo(correoAlumno);
     }
 
-    public String getRolUsuario() {
+    public String obtenerRolUsuario() {
         return rolUsuario;
     }
 
-    public Alumnos conseguirAlumnoNombre(String nombreAlumno) {
+    public Alumnos obtenerAlumnoPorNombre(String nombreAlumno) {
         if (nombreAlumno.isBlank() || nombreAlumno.isEmpty()) {
-            throw new IllegalArgumentException("El campo 'correo' es obligatorio");
+            throw new IllegalArgumentException("El campo 'nombre' es obligatorio");
         }
-        return alumnoDAO.conseguirAlumnoNombre(nombreAlumno);
+        return alumnoDAO.obtenerAlumnoPorNombre(nombreAlumno);
     }
 }
